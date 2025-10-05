@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".Admin.MainActivity">
+
+        <!-- Khối đặt bàn nhanh -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_bogoc_cam"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt_header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-100dp"
+                android:text="@string/txt_fastbooking"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.433"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_header_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="@string/txt_desc_fastbooking"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimen_txt_16sp"
+                app:layout_constraintStart_toStartOf="@+id/txt_header_title"
+                app:layout_constraintTop_toBottomOf="@+id/txt_header_title" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/bg_btn_xam"
+                android:minWidth="150dp"
+                android:text="@string/btn_txt_fastbooking"
+                android:textSize="@dimen/dimen_txt_16sp"
+                app:layout_constraintStart_toStartOf="@id/txt_header_subtitle"
+                app:layout_constraintTop_toBottomOf="@id/txt_header_subtitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTournament"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/header_home"
+            app:layout_constraintStart_toStartOf="@+id/header_home"
+            app:layout_constraintTop_toBottomOf="@+id/header_home">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/txtTheBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đơn đặt bàn"
+            android:padding="10dp"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintStart_toStartOf="@+id/rvTournament"
+            android:textColor="@color/ColorOrgrien"
+            app:layout_constraintTop_toBottomOf="@+id/rvTournament"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTheBooking"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_voucher"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtTheBooking"
+            app:layout_constraintStart_toStartOf="@+id/txtTheBooking"/>
+
+        <TextView
+            android:id="@+id/txt_outstanding_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/txt_title_outstanding"
+            android:textColor="@color/ColorOrgrien"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintStart_toStartOf="@+id/rvTheBooking"
+            app:layout_constraintTop_toBottomOf="@+id/rvTheBooking" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOutstanding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:background="@drawable/bg_voucher"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="@+id/txt_outstanding_title"
+            app:layout_constraintTop_toBottomOf="@id/txt_outstanding_title"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="403dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

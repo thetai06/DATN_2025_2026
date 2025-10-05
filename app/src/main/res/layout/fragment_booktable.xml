@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/txtShopTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/txt_shop_title"
+            android:textColor="@color/ColorOrgrien"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    Chon the loai game-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_orange"
+            android:paddingBottom="20dp"
+            app:layout_constraintStart_toStartOf="@id/txtShopTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txtShopTitle">
+
+            <TextView
+                android:id="@+id/txtSelectGameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_select_game"
+                android:textColor="@color/ColorWhite"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintStart_toStartOf="@+id/txtSelectGameTitle"
+                app:layout_constraintTop_toBottomOf="@+id/txtSelectGameTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selectDateGame"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/selectGame"
+            app:layout_constraintTop_toBottomOf="@+id/selectGame">
+
+            <ImageView
+                android:id="@+id/ivLogoDateGame"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/icons8calendar48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSelectDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_title_select_game"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintStart_toEndOf="@+id/ivLogoDateGame"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" 06 / 10 / 2003 "
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="20dp"
+                android:padding="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_from_input"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintLeft_toLeftOf="@+id/ivLogoDateGame"
+                app:layout_constraintTop_toBottomOf="@+id/txtSelectDateTitle"/>
+
+            <ImageButton
+                android:id="@+id/ibLogoSelectDate"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icons8calendar24"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginRight="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvDate"
+                app:layout_constraintTop_toTopOf="@+id/tvDate"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDate"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/boxSelectTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/selectDateGame"
+            app:layout_constraintTop_toBottomOf="@+id/selectDateGame">
+
+            <ImageView
+                android:id="@+id/ivSelectTime"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icons8clock50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSelectTimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Chọn giờ (tối thiểu 1 giờ)"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintStart_toEndOf="@+id/ivSelectTime"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="80dp" />
+
+            <TextView
+                android:id="@+id/textViewTimeStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="10dp"
+                android:padding="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_from_input"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                android:hint="Start time"
+                app:layout_constraintTop_toBottomOf="@+id/txtSelectTimeTitle"
+                app:layout_constraintLeft_toLeftOf="@+id/ivSelectTime"
+                app:layout_constraintRight_toLeftOf="@+id/textViewTimeEnd"/>
+
+            <ImageButton
+                android:id="@+id/ibLogoSelectTimeStart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icons8watch30"
+                android:layout_marginRight="10dp"
+                app:layout_constraintRight_toRightOf="@+id/textViewTimeStart"
+                app:layout_constraintTop_toTopOf="@+id/textViewTimeStart"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTimeStart"/>
+
+            <TextView
+                android:id="@+id/textViewTimeEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="10dp"
+                android:padding="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_from_input"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                android:hint="End time"
+                app:layout_constraintTop_toBottomOf="@+id/txtSelectTimeTitle"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/textViewTimeStart"/>
+
+            <ImageButton
+                android:id="@+id/ibLogoSelectTimeEnd"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icons8watch30"
+                android:layout_marginRight="10dp"
+                app:layout_constraintRight_toRightOf="@+id/textViewTimeEnd"
+                app:layout_constraintTop_toTopOf="@+id/textViewTimeEnd"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTimeEnd"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/boxCountPeopel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxSelectTime">
+
+            <ImageView
+                android:id="@+id/imgIconPeople"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icons8selfish50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtNumberPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/txt_number_peopel_title"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toEndOf="@id/imgIconPeople"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSumPeoPel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:background="@drawable/bg_from_input"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintTop_toBottomOf="@id/txtNumberPeople" />
+
+            <Spinner
+                android:id="@+id/spinnerPeopel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintTop_toTopOf="@+id/txtSumPeoPel"
+                app:layout_constraintStart_toStartOf="@+id/txtSumPeoPel"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/boxClbBia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxCountPeopel">
+
+            <ImageView
+                android:id="@+id/iconLocation"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icons8_location_50"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Chọn câu lạc bộ Bi-a"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintLeft_toRightOf="@id/iconLocation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvClbBia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_from_input"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iconLocation" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/boxInvoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/bg_voucher"
+            android:padding="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxClbBia">
+
+            <TextView
+                android:id="@+id/titleBoxInvoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông tin đặt bàn:"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_title_22sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtGameType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Loại game: 8-ball"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleBoxInvoice" />
+
+            <TextView
+                android:id="@+id/txtManyPeoPle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng người: 2 người"
+                android:padding="5dp"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="@+id/txtGameType"
+                app:layout_constraintTop_toBottomOf="@+id/txtGameType" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian: ..."
+                android:padding="5dp"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="@+id/txtManyPeoPle"
+                app:layout_constraintTop_toBottomOf="@+id/txtManyPeoPle" />
+
+            <TextView
+                android:id="@+id/txtDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Ngày: 01 / 01 /2025"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="@+id/txtTime"
+                app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+
+            <TextView
+                android:id="@+id/txtSelectClb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Cơ sở: ..."
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintStart_toStartOf="@+id/txtDateTime"
+                app:layout_constraintTop_toBottomOf="@+id/txtDateTime" />
+
+            <EditText
+                android:id="@+id/edtDiscountCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_discount_code"
+                android:padding="5dp"
+                android:hint="Điền mã giảm giá nếu có"
+                app:layout_constraintLeft_toLeftOf="@+id/txtSelectClb"
+                app:layout_constraintTop_toBottomOf="@+id/txtSelectClb"/>
+
+            <TextView
+                android:id="@+id/PrepareTheBill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="@dimen/dimen_txt_20sp"
+                android:text="Thành tiền: "
+                app:layout_constraintLeft_toLeftOf="@+id/edtDiscountCode"
+                app:layout_constraintTop_toBottomOf="@+id/edtDiscountCode"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnConfirmBooking"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_btn_orange"
+            android:textColor="@color/ColorWhite"
+            android:text="@string/btn_confirm_booking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxInvoice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

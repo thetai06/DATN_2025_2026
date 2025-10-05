@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "609091122965",
+    "firebase_url": "https://datn-2025-10496-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "datn-2025-10496",
+    "storage_bucket": "datn-2025-10496.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609091122965:android:3e619cfac02ae351b01b1c",
+        "android_client_info": {
+          "package_name": "org.o7planning.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVAFiJCyDxUO3A2n7Zek2hH62VSO8_650"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

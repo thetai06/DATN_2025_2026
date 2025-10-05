@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_txt_20sp"
+    android:background="@drawable/bg_upgrade"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm Voucher"
+        android:textColor="@color/ColorWhite"
+        android:textAllCaps="true"
+        android:textSize="@dimen/dimen_txt_title_22sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Thông tin chi tiết"
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtVoucherToClb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Áp dụng cho cơ sở..."
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/edtDes"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtVoucherTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:layout_marginTop="10dp"
+        android:hint="Thời gian áp dựng mã"
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherToClb"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/edtVoucherCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Mã giảm giá"
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherTime"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <EditText
+        android:id="@+id/edtVoucherValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Phần trăm áp dụng (%)"
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherCode"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:minWidth="150dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/ColorWhite"
+        android:background="@drawable/bg_btn_orange"
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherValue"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_splash">
+
+    <fragment
+        android:id="@+id/fragment_splash"
+        android:name="org.o7planning.myapplication.Admin.FragmentSplash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_login"
+            app:destination="@+id/fragment_login"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_splash"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_overview"
+            app:destination="@id/fragment_overview"
+            app:popUpTo="@id/fragment_splash"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="org.o7planning.myapplication.Admin.FragmentLogin"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/fragment_login_to_fragment_signup"
+            app:destination="@id/fragment_signup" />
+        <action
+            android:id="@+id/fragment_login_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/fragment_login_to_fragment_send_code"
+            app:destination="@id/fragment_send_code"/>
+        <action
+            android:id="@+id/fragment_login_to_fragment_overview"
+            android:name="org.o7planning.myapplication.FragmentOverview"
+            app:destination="@id/fragment_overview"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_signup"
+        android:name="org.o7planning.myapplication.Admin.FragmentRegister"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/fragment_signup_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/fragment_signup_to_fragment_access_location"
+            app:destination="@id/fragment_access_location" />
+    </fragment>
+
+    <fragment android:id="@+id/fragment_access_location"
+        android:name="org.o7planning.myapplication.Customer.FragmentAccessLocation"
+        tools:layout="@layout/fragment_access_location">
+        <action
+            android:id="@+id/fragment_access_location_to_fragment_home"
+            app:destination="@id/fragment_home" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_booktable"
+        android:name="org.o7planning.myapplication.Customer.FragmentBooktable"
+        tools:layout="@layout/fragment_booktable">
+        <action
+            android:id="@+id/fragment_booktable_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_booktable_to_fragment_sale"
+            app:destination="@id/fragment_sale" />
+        <action
+            android:id="@+id/action_fragment_booktable_to_fragment_profile"
+            app:destination="@id/fragment_profile" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sale"
+        android:name="org.o7planning.myapplication.Customer.FragmentSale"
+        tools:layout="@layout/fragment_sale">
+        <action
+            android:id="@+id/fragment_sale_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_sale_to_fragment_booktable"
+            app:destination="@id/fragment_booktable" >
+            <argument
+                android:name="voucher"
+                app:argType="string"/>
+        </action>
+        <action
+            android:id="@+id/action_fragment_booktable_to_fragment_profile"
+            app:destination="@id/fragment_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="org.o7planning.myapplication.Customer.FragmentHome"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_booktable"
+            app:destination="@id/fragment_booktable" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_sale"
+            app:destination="@id/fragment_sale" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_profile"
+            app:destination="@id/fragment_profile" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="org.o7planning.myapplication.Customer.FragmentProfile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/fragment_profile_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_booktable"
+            app:destination="@id/fragment_booktable" />
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_sale"
+            app:destination="@id/fragment_sale" />
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_upgrade"
+            app:destination="@+id/fragment_upgrade"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_send_code"
+        android:name="org.o7planning.myapplication.Admin.FragmentSendCode"
+        tools:layout="@layout/fragment_send_code">
+        <action
+            android:id="@+id/fragmnet_send_code_to_fragment_login"
+            app:destination="@id/fragment_login"/>
+    </fragment>
+
+<!--    các fragment Chủ cửa hàng-->
+    <fragment
+        android:id="@+id/fragment_overview"
+        android:name="org.o7planning.myapplication.Owner.FragmentOverview"
+        tools:layout="@layout/fragment_overview">
+        <action
+            android:id="@+id/fragment_overview_to_fragment_ManagementBar"
+            android:name="org.o7planning.myapplication.FragmentManagementBar"
+            app:destination="@id/fragment_ManagementBar"/>
+        <action
+            android:id="@+id/fragment_overview_to_fragment_tablemanagement"
+            android:name="org.o7planning.myapplication.FragmentTablegame"
+            app:destination="@id/fragment_tablemanagement"/>
+        <action
+            android:id="@+id/fragment_overview_to_fragment_makeorder"
+            android:name="org.o7planning.myapplication.FragmentMakeorder"
+            app:destination="@id/fragment_makeorder"/>
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_makeorder"
+        android:name="org.o7planning.myapplication.Owner.FragmentMakeorder"
+        tools:layout="@layout/fragment_makeorder">
+        <action
+            android:id="@+id/fragment_makeorder_to_fragment_ManagementBar"
+            android:name="org.o7planning.myapplication.FragmentManagementBar"
+            app:destination="@id/fragment_ManagementBar"/>
+        <action
+            android:id="@+id/fragment_makeorder_to_fragment_tablemanagement"
+            android:name="org.o7planning.myapplication.FragmentTablegame"
+            app:destination="@id/fragment_tablemanagement"
+            />
+        <action
+            android:id="@+id/fragment_makeorder_to_fragment_overview"
+            android:name="org.o7planning.myapplication.FragmentOverview"
+            app:destination="@id/fragment_overview"/>
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_tablemanagement"
+        android:name="org.o7planning.myapplication.Owner.FragmentTableManagement"
+        tools:layout="@layout/fragment_tablemanagement">
+        <action
+            android:id="@+id/fragment_tablemanagement_to_fragment_ManagementBar"
+            android:name="org.o7planning.myapplication.FragmentManagementBar"
+            app:destination="@id/fragment_ManagementBar"/>
+        <action
+            android:id="@+id/fragment_tablemanagement_to_fragment_makeorder"
+            android:name="org.o7planning.myapplication.FragmentMakeorder"
+            app:destination="@id/fragment_makeorder"/>
+        <action
+            android:id="@+id/fragment_tablemanagement_to_fragment_overview"
+            android:name="org.o7planning.myapplication.FragmentOverview"
+            app:destination="@id/fragment_overview"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_ManagementBar"
+        android:name="org.o7planning.myapplication.Owner.FragmentManagementBar"
+        tools:layout="@layout/fragment_management_bar">
+        <action
+            android:id="@+id/fragment_ManagementBar_to_fragment_tablemanagement"
+            android:name="org.o7planning.myapplication.FragmentTablegame"
+            app:destination="@id/fragment_tablemanagement"/>
+        <action
+            android:id="@+id/fragment_ManagementBar_to_fragment_makeorder"
+            android:name="org.o7planning.myapplication.FragmentMakeorder"
+            app:destination="@id/fragment_makeorder"/>
+
+        <action
+            android:id="@+id/fragment_ManagementBar_to_fragment_overview"
+            android:name="org.o7planning.myapplication.FragmentOverview"
+            app:destination="@id/fragment_overview"/>
+
+        <action
+            android:id="@+id/fragment_access_location_to_fragment_login"
+            android:name="org.o7planning.myapplication.FragmentLogin"
+            app:destination="@id/fragment_login" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_upgrade"
+        android:name="org.o7planning.myapplication.Admin.FragmentUpgrade"
+        tools:layout="@layout/fragment_upgrade">
+        <action
+            android:id="@+id/fragment_ManagementBar_to_fragment_overview"
+            android:name="org.o7planning.myapplication.FragmentOverview"
+            app:destination="@id/fragment_overview"/>
+
+    </fragment>
+
+
+</navigation>

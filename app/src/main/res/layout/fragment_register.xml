@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.FragmentRegister">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Admin.FragmentRegister">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/boxHeadSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgTitleSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/oip4"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                    android:id="@+id/titleSignup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="35dp"
+                    android:text="@string/txt_signup"
+                    android:textColor="@color/ColorOrgrien"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgTitleSignup"
+                    app:layout_constraintLeft_toLeftOf="@+id/imgTitleSignup"
+                    app:layout_constraintRight_toRightOf="@+id/imgTitleSignup" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/boxInputLogIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:background="@drawable/bg_white"
+                android:paddingBottom="95dp"
+                app:layout_constraintLeft_toLeftOf="@+id/boxHeadSignup"
+                app:layout_constraintRight_toRightOf="@+id/boxHeadSignup"
+                app:layout_constraintTop_toBottomOf="@+id/boxHeadSignup">
+
+                <!-- Các thành phần khác trong boxInputLogIn -->
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_name"
+                    android:textSize="@dimen/dimen_txt_20sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <EditText
+                    android:id="@+id/edtNameSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:background = "@drawable/bg_edt"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="20dp"
+                    android:hint="Nhập tên"
+                    app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName"/>
+
+                <TextView
+                    android:id="@+id/txtEmailSignup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/txt_email"
+                    android:textSize="@dimen/dimen_txt_20sp"
+                    android:layout_marginLeft="30dp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtNameSignup"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <EditText
+                    android:id="@+id/edtEmailSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/bg_edt"
+                    android:hint="Nhập email hoặc số điện thoai..."
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/dimen_txt_16sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/txtEmailSignup"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmailSignup" />
+
+                <TextView
+                    android:id="@+id/txtPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/txt_password"
+                    android:textSize="@dimen/dimen_txt_20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtEmailSignup" />
+
+                <EditText
+                    android:id="@+id/edtPasswordSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/bg_edt"
+                    android:hint="Nhập mật khẩu"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/dimen_txt_16sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/txtPassword"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+                <TextView
+                    android:id="@+id/txtRestypePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Password"
+                    android:textSize="@dimen/dimen_txt_20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtPasswordSignup" />
+
+                <EditText
+                    android:id="@+id/edtRestypePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:background="@drawable/bg_edt"
+                    android:hint="Nhập lại mật khẩu"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/dimen_txt_16sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/txtRestypePassword"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRestypePassword" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/bg_btn_orange"
+                    android:minWidth="170dp"
+                    android:padding="20dp"
+                    android:text="Đăng Ký"
+                    android:textColor="@color/ColorWhite"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtRestypePassword"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>

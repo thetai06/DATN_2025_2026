@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/bg_box_management"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_Management"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/quan_bi_a2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Management">
+
+        <TextView
+            android:id="@+id/nameBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quán Bi-a Ông Thần Tài"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:textColor="@color/ColorWhite"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icons8_location_50"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/locationBar"
+            app:layout_constraintTop_toTopOf="@+id/locationBar" />
+
+        <TextView
+            android:id="@+id/locationBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:textColor="@color/ColorWhite"
+            android:padding="5dp"
+            android:text="123 Nguyễn Trãi, Quận Thanh Xuân, TP.HN"
+            app:layout_constraintLeft_toRightOf="@+id/ivLocation"
+            app:layout_constraintTop_toBottomOf="@+id/nameBar"/>
+
+        <ImageView
+            android:id="@+id/ivPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons8phone25"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/phoneBar"
+            app:layout_constraintTop_toTopOf="@+id/phoneBar"/>
+
+        <TextView
+            android:id="@+id/phoneBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ColorWhite"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:padding="5dp"
+            android:text="0901234567"
+            app:layout_constraintLeft_toRightOf="@+id/ivPhone"
+            app:layout_constraintTop_toBottomOf="@+id/locationBar"/>
+
+        <ImageView
+            android:id="@+id/ivEmail"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icons8mail25"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/emailBar"
+            app:layout_constraintTop_toTopOf="@+id/emailBar"/>
+
+        <TextView
+            android:id="@+id/emailBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ColorWhite"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:padding="5dp"
+            android:text="Email: taideptrai@gmail.com"
+            app:layout_constraintLeft_toRightOf="@+id/ivTime"
+            app:layout_constraintTop_toBottomOf="@+id/phoneBar"/>
+
+        <ImageView
+            android:id="@+id/ivTime"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icons8clock50"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/timeBar"
+            app:layout_constraintTop_toTopOf="@+id/timeBar"/>
+
+        <TextView
+            android:id="@+id/timeBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ColorWhite"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:padding="5dp"
+            android:text="Thời gian mở cửa: full"
+            app:layout_constraintLeft_toRightOf="@+id/ivTime"
+            app:layout_constraintTop_toBottomOf="@+id/emailBar"/>
+
+        <ImageView
+            android:id="@+id/ivTable"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icons8ball51"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tableBar"
+            app:layout_constraintTop_toTopOf="@+id/tableBar"/>
+
+        <TextView
+            android:id="@+id/tableBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ColorWhite"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:padding="5dp"
+            android:text="Số lượng bàn: 15"
+            app:layout_constraintLeft_toRightOf="@+id/ivTable"
+            app:layout_constraintTop_toBottomOf="@+id/timeBar"/>
+
+        <TextView
+            android:id="@+id/desBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ColorWhite"
+            android:padding="5dp"
+            android:textSize="@dimen/dimen_btn_txt_15sp"
+            android:text="Quán bi-a với không gian thoáng mát, phục vụ tận tâm. Đội ngũ nhân viên chuyên nghiệp, thân thiện."
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableBar"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chỉnh sửa"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_btn_add_bar"
+            android:minWidth="160dp"
+            android:textSize="@dimen/dimen_btn_txt_15sp"
+            android:textAllCaps="false"
+            android:textColor="@color/ColorWhite"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_Delete"
+            app:layout_constraintTop_toBottomOf="@+id/desBar"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="160dp"
+            android:background="@drawable/bg_btn_delete"
+            android:text="Xoá"
+            android:textSize="@dimen/dimen_btn_txt_15sp"
+            android:textAllCaps="false"
+            android:textColor="@color/ColorWhite"
+            app:layout_constraintLeft_toRightOf="@id/btn_Edit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:padding="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_violet">
+
+    <ImageView
+        android:id="@+id/imgSpecialOffer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icons8goal48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSpecialOfferTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Ưu đãi đặc biệt"
+        android:textColor="@color/ColorWhite"
+        android:textSize="@dimen/dimen_txt_title_22sp"
+        app:layout_constraintStart_toEndOf="@+id/imgSpecialOffer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSpecialOfferDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giảm tới 50% cho lần đầu đặt đầu tiên"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-15dp"
+        android:textColor="@color/ColorWhite"
+        android:textSize="@dimen/dimen_txt_16sp"
+        app:layout_constraintStart_toStartOf="@+id/txtSpecialOfferTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtSpecialOfferTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSpecialOfferReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textSize="@dimen/dimen_txt_16sp"
+        android:layout_marginStart="-40dp"
+        android:minWidth="150dp"
+        android:textColor="#ef35e3"
+        android:background="@drawable/bg_xanhngoc"
+        android:text="@string/btn_SpecialOfferReceive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSpecialOfferDesc" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

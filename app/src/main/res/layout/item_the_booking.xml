@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginVertical="10dp"
+    android:background="@drawable/bg_voucher2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_Title_RealTime"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icons8parkpost50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/title_Status_Realtime"/>
+    <TextView
+        android:id="@+id/title_Status_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đặt bàn mới"
+        android:padding="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/iv_Title_RealTime"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/name_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:text="Tổng Tài Bá đạo - 08278948"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_Status_Realtime"/>
+
+    <ImageView
+        android:id="@+id/iv_Time_RealTime"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icons8calendar48"
+        app:layout_constraintRight_toLeftOf="@+id/time_Realtime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_Realtime"/>
+    <TextView
+        android:id="@+id/time_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Hôm nay 20:00 - 2 giờ"
+        app:layout_constraintLeft_toRightOf="@+id/iv_Time_RealTime"
+        app:layout_constraintTop_toBottomOf="@+id/name_Realtime"/>
+
+    <ImageView
+        android:id="@+id/iv_Person"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icons8group48"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/person_Realtime"
+        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+    <TextView
+        android:id="@+id/person_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="4 người chơi"
+        app:layout_constraintLeft_toRightOf="@+id/iv_Person"
+        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+
+    <ImageView
+        android:id="@+id/iv_Money"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/icons8dollarcoins40"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Person"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/many_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="100.000 VNĐ"
+        app:layout_constraintLeft_toRightOf="@+id/iv_Money"
+        app:layout_constraintTop_toBottomOf="@+id/person_Realtime"/>
+
+    <TextView
+        android:id="@+id/status_Realtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/ColorWhite"
+        android:text="Chờ xử lý"
+        android:background="@drawable/bg_startic_red"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

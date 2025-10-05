@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".Owner.FragmentOverview">
+
+        <ImageView
+            android:id="@+id/imgHeader"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/quan_bi_a1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/box_txt_Title_Shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ColorWhite"
+            android:padding="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgHeader">
+
+            <ImageView
+                android:id="@+id/iv_TitleShop"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/icons8pool8ball48"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_Title_Shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Bi-a Ông Thần Tài"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtLocationOverview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Cơ sở: Hà Đông"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_16sp"
+                app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Title_Shop" />
+
+            <TextView
+                android:id="@+id/txt_Assessment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Đánh giá: 5 sao"
+                android:textColor="@color/ColorOrgrien"
+                android:textSize="@dimen/dimen_txt_16sp"
+                app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
+                app:layout_constraintTop_toBottomOf="@+id/txtLocationOverview" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_voucher"
+            android:padding="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/box_txt_Title_Shop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_Title_Overview"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icons8location100"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_Title_Overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Tổng quan quán"
+                    android:textColor="@color/ColorOrgrien"
+                    android:textSize="@dimen/dimen_txt_title_22sp"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_Title_Overview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/box_Statistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_xanhngoc"
+                    android:padding="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_Title_Overview">
+
+                    <ImageView
+                        android:id="@+id/iv_Title_Statistics"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/icons8_ball_32"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_Statistics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Thống kê hôm nay"
+                        android:textColor="@color/ColorOrgrien"
+                        android:textSize="@dimen/dimen_txt_20sp"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_Title_Statistics"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_SumTable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Tổng đặt bàn: 10"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Statistics" />
+
+                    <TextView
+                        android:id="@+id/txt_Confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Đã xác nhận: 8"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_SumTable" />
+
+                    <TextView
+                        android:id="@+id/txt_profit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="chờ xử lý: 2"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Confirm" />
+
+                    <TextView
+                        android:id="@+id/txt_Processing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Doanh thu: 800.000"
+                        android:textColor="@color/color_xanhnhat"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_profit" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/box_Status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_xanhngoc"
+                    android:padding="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/box_Statistics">
+
+                    <ImageView
+                        android:id="@+id/iv_Title_Status"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/icons8_ball_32"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_Title_Status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Trạng thái bàn chơi"
+                        android:textColor="@color/ColorOrgrien"
+                        android:textSize="@dimen/dimen_txt_20sp"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_Title_Status"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_Statistics_Status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Tổng bàn: 10"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Title_Status" />
+
+                    <TextView
+                        android:id="@+id/txt_Table_Active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Đang hoạt động: 8"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Statistics_Status" />
+
+                    <TextView
+                        android:id="@+id/txt_Table_Empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Bàn trống: 2"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Table_Active" />
+
+                    <TextView
+                        android:id="@+id/maintenance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Bảo trì: 0"
+                        android:textColor="@color/color_xanhnhat"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Table_Empty" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

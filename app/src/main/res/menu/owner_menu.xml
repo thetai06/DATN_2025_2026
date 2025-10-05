@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_overview"
+        android:title="Tổng quan"
+        android:icon="@drawable/icons8crowd24"
+        />
+
+    <item
+        android:id="@+id/fragment_makeorder"
+        android:title="Đặt bàn"
+        android:icon="@drawable/icons8shoppingbag50"
+        />
+    <item
+        android:id="@+id/fragment_tablemanagement"
+        android:title="Quản lý bàn"
+        android:icon="@drawable/icons8ball51"
+        />
+
+    <item
+        android:id="@+id/fragment_ManagementBar"
+        android:title="Cài đặt"
+        android:icon="@drawable/icons8settings24"
+        />
+</menu>

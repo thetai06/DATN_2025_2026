@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="txt_fastbooking">Đặt bàn nhanh</string>
+    <string name="txt_desc_fastbooking">Tìm và đặt bàn bi-a tại CLB yêu thích</string>
+    <string name="btn_txt_fastbooking">Đặt Ngay</string>
+    <string name="txt_title_outstanding">CLB Bi-a nổi bật</string>
+    <string name="txt_tournament">Giải đấu</string>
+    <string name="txt_desc_tournament">Tham gia ngay</string>
+    <string name="txt_order">Đặt bàn</string>
+    <string name="txt_shop_title">Đặt bàn Bi-a</string>
+    <string name="txt_title_select_game">Chọn ngày</string>
+    <string name="txt_select_game">Chọn thể loại game</string>
+    <string name="btn_select_time">Button</string>
+    <string name="txt_number_peopel_title">Số người chơi</string>
+    <string name="txt_sum_peopel">1 người</string>
+    <string name="btn_confirm_booking">Đặt bàn ngay</string>
+    <string name="btn_SpecialOfferReceive">Nhận ngay</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_desc_login">Không có tài khoản?</string>
+    <string name="txt_or">hoặc</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment111</string>
+    <string name="txt_signup">Đăng Ký</string>
+    <string name="txt_name">Name</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_copy_voucher">Áp mã giảm giá</string>
+    <string name="txt_voucher">DTP17</string>
+    <string name="txt_date_voucher">Ngày: 1/9/2025 - 20/9/2025</string>
+    <string name="txt_clb_voucher">Cơ sở: Hà Nội</string>
+    <string name="txt_title_voucher">Giảm 30% cho thành viên mới</string>
+    <string name="step_title_3">Bước 3</string>
+    <string name="step_title_2">Bước 2</string>
+    <string name="step_title_1">Bước 1</string>
+    <string name="des_title_upgrade">Trở thành chủ cửa hàng bi-a và mở rộng kinh doanh</string>
+    <string name="txt_title_upgrade">Nâng cấp tài khoản</string>
+
+</resources>

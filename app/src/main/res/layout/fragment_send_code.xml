@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Admin.FragmentSendCode">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ivSendCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/oip4"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:background="@drawable/bg_white"
+            app:layout_constraintTop_toBottomOf="@+id/ivSendCode"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/txtEmailSendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="40dp"
+                android:text="Email"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <EditText
+                android:id="@+id/edtEmailSendCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                android:background="@drawable/bg_xamxanh"
+                android:inputType="textEmailSubject"
+                android:hint="Nhập email"
+                android:textSize="@dimen/dimen_txt_16sp"
+                app:layout_constraintTop_toBottomOf="@id/txtEmailSendCode"
+                app:layout_constraintLeft_toLeftOf="@+id/txtEmailSendCode"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSendCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:padding="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_btn_orange"
+                android:textSize="@dimen/dimen_txt_20sp"
+                android:text="Send Code"
+                android:textColor="@color/ColorWhite"
+                android:textAllCaps="true"
+                app:layout_constraintTop_toBottomOf="@+id/edtEmailSendCode"
+                app:layout_constraintLeft_toLeftOf="@+id/edtEmailSendCode"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>

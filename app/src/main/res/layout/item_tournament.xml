@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_btn_xam"
+    android:paddingHorizontal="40dp"
+    android:paddingVertical="20dp"
+    android:gravity="center"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgTournament"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/icons8battle80"
+        />
+
+    <TextView
+        android:id="@+id/txtTournament"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_tournament"
+        android:textColor="@color/ColorBalck"
+        android:textSize="@dimen/dimen_txt_title_22sp"
+        />
+
+    <TextView
+        android:id="@+id/txtTournamentStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_desc_tournament"
+        android:textSize="@dimen/dimen_txt_16sp"
+        android:textColor="@color/ColorOrgrien"
+        />
+
+
+</LinearLayout>

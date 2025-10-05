@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ColorBalck">#FF000000</color>
+    <color name="ColorWhite">#FFFFFFFF</color>
+    <color name="ColorOrgrien">#ff7622</color>
+    <color name="ColorXamXanh">#f0f5fa</color>
+    <color name="ColorXam">#d9d9d9</color>
+    <color name="color_violet">#c690d3</color>
+    <color name="color_xanhnhat">#04c598</color>"
+    <color name="colorSelected">#A3D9A5</color>
+    <color name="colorDefault">#FF7622</color>
+</resources>

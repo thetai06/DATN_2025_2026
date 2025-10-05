@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.FragmentLogin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Admin.FragmentLogin">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/boxHeadLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgTitleLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/oip4"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/titleLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="35dp"
+                        android:text="Đăng Nhập"
+                        android:textColor="@color/ColorOrgrien"
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgTitleLogin"
+                        app:layout_constraintLeft_toLeftOf="@+id/imgTitleLogin"
+                        app:layout_constraintRight_toRightOf="@+id/imgTitleLogin" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/boxInputLogIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-30dp"
+                    android:background="@drawable/bg_white"
+                    android:paddingBottom="95dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/boxHeadLogin"
+                    app:layout_constraintRight_toRightOf="@+id/boxHeadLogin"
+                    app:layout_constraintTop_toBottomOf="@+id/boxHeadLogin"
+                    >
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/txt_email"
+                        android:textSize="@dimen/dimen_txt_20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/edtInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:background="@drawable/bg_edt"
+                        android:hint="Nhập email hoặc số điện thoai..."
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="20dp"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="@+id/txtEmail"
+                        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+                    <TextView
+                        android:id="@+id/txtPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/txt_password"
+                        android:textSize="@dimen/dimen_txt_20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtInput" />
+
+                    <EditText
+                        android:id="@+id/edtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:background="@drawable/bg_edt"
+                        android:hint="Nhập mật khẩu"
+                        android:inputType="textPassword"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="20dp"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="@+id/txtPassword"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+                    <Button
+                        android:id="@+id/btnForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@android:color/transparent"
+                        android:text="Quên mật khẩu"
+                        android:textColor="@color/ColorOrgrien"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/bg_btn_orange"
+                        android:minWidth="170dp"
+                        android:padding="20dp"
+                        android:text="Đăng Nhập"
+                        android:textColor="@color/ColorWhite"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword" />
+
+                    <TextView
+                        android:id="@+id/txtDescLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/txt_desc_login"
+                        android:textSize="@dimen/dimen_txt_16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/btnToSignUp"
+                        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnToSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@android:color/transparent"
+                        android:text="Đăng ký"
+                        android:textColor="@color/ColorOrgrien"
+                        app:layout_constraintLeft_toRightOf="@+id/txtDescLogin"
+                        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+                    <TextView
+                        android:id="@+id/txtOr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/txt_or"
+                        app:layout_constraintLeft_toLeftOf="@+id/txtDescLogin"
+                        app:layout_constraintRight_toRightOf="@+id/btnToSignUp"
+                        app:layout_constraintTop_toBottomOf="@+id/btnToSignUp" />
+
+                    <ImageButton
+                        android:id="@+id/btnFacebook"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/icons8facebook"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtOr" />
+
+                    <ImageButton
+                        android:id="@+id/btnTwitter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/icons8twitter"
+                        app:layout_constraintLeft_toRightOf="@+id/btnFacebook"
+                        app:layout_constraintTop_toBottomOf="@+id/txtOr" />
+
+                    <ImageButton
+                        android:id="@+id/btnZalo"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/icons8zalo"
+                        app:layout_constraintLeft_toRightOf="@+id/btnTwitter"
+                        app:layout_constraintTop_toBottomOf="@+id/txtOr" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

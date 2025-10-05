@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxWidth="350dp"
+        android:padding="20dp"
+        android:background="@drawable/bg_xanhngoc">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thể lệ giải đấu"
+            android:padding="5dp"
+            android:textColor="@color/ColorOrgrien"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:layout_height="wrap_content"
+            android:text="Thời gian bắt đầu: 20 / 12 /2025"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            />
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:textColor="#F80505"
+            android:text="Thời gian kết thúc: 01 / 01 /2026"
+            app:layout_constraintTop_toBottomOf="@+id/startDate"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <TextView
+            android:id="@+id/award"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:text="Giải thưởng: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endDate"/>
+
+        <TextView
+            android:id="@+id/reles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="@dimen/dimen_txt_16sp"
+            android:text="Quy chế giải đấu: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/award"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/desTourNament"
+            android:textSize="@dimen/dimen_btn_txt_15sp"
+            android:text="1: 9 bi\n2: 4 vòng đấu\n3:Đơn giản chỉ cần dán văn bản của bạn vào hộp nhập liệu hoặc tải lên tài liệu của bạn. Chọn ngôn ngữ nguồn của bạn hoặc để AI của chúng tôi tự động phát hiện. "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reles"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

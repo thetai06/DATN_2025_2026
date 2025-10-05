@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Admin.RvStepTwoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_box_step"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="30dp">
+
+        <TextView
+            android:id="@+id/title_StepTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác minh danh tính"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dimen_txt_title_22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_License_StepTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giấy phép kinh doanh *"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dimen_txt_20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_StepTwo"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/input_License_StepTwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingVertical="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_choose_file"
+            app:layout_constraintTop_toBottomOf="@+id/txt_License_StepTwo">
+
+            <ImageView
+                android:id="@+id/ivUpload"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icons8levelup50"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/txt_License"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giấy phép kinh doanh *"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/ivUpload"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tải lên ảnh giấy phép kinh doanh"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_License"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUploadLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:text="Chọn file"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="false"
+                android:textColor="#5857ea"
+                android:textSize="@dimen/dimen_txt_20sp"
+                android:background="@drawable/btn_choose_file"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvFileName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_CCCD_StepTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CCCD/CMND *"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dimen_txt_20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_License_StepTwo"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/input_CCCD_StepTwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="40dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_choose_file"
+            app:layout_constraintTop_toBottomOf="@+id/txt_CCCD_StepTwo">
+
+            <ImageView
+                android:id="@+id/ivCammera"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icons8camera50"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/txt_CCCD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tải ảnh CCCD/CMND"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/ivCammera"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvCCCDFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hai mặt trước và sau"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_CCCD"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUploadCCCD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
+                android:text="Chọn file"
+                android:layout_marginTop="10dp"
+                android:textAllCaps="false"
+                android:textColor="#5857ea"
+                android:textSize="@dimen/dimen_txt_20sp"
+                android:background="@drawable/btn_choose_file"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvCCCDFileName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_BankAccountNumber_StepTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số tài khoản ngân hàng *"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dimen_txt_20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_CCCD_StepTwo"/>
+
+        <EditText
+            android:id="@+id/edt_BankAccountNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edt"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:hint="Nhập số tài khoản để nhận thanh toán"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_BankAccountNumber_StepTwo"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/bg_btn_xam10"
+            app:layout_constraintTop_toBottomOf="@+id/edt_BankAccountNumber">
+
+            <TextView
+                android:id="@+id/dec_StepTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bảo mật thông tin"
+                android:textSize="@dimen/dimen_txt_20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/dimen_txt_16sp"
+                android:text="Thông tin của bạn được mã hóa và bảo mật theo tiêu chuẩn quốc tế. Chúng tôi chỉ sử dụng để xác minh danh tính và không chia sẻ với bên thứ ba."
+                app:layout_constraintTop_toBottomOf="@+id/dec_StepTwo"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

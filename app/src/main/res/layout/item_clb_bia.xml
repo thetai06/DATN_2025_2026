@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_xanhngoc"
+    android:layout_marginTop="20dp"
+    android:padding="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/imgLogoShop"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/icons8_ball_32"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtNameShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Bi-a Ông Vua"
+        android:textSize="@dimen/dimen_txt_title_22sp"
+        app:layout_constraintLeft_toRightOf="@+id/imgLogoShop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtLocationBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ: Hà Đông"
+        android:textSize="@dimen/dimen_txt_16sp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtNameShop"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameShop"
+        />
+
+    <TextView
+        android:id="@+id/txtDescShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Còn lại: 10 bàn"
+        android:textSize="@dimen/dimen_txt_16sp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtLocationBook"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocationBook"
+        />
+
+    <TextView
+        android:id="@+id/txtVoteShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 sao"
+        android:textSize="@dimen/dimen_txt_16sp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtDescShop"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescShop"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/background_bogoc_cam"
+        android:minWidth="100dp"
+        android:text="@string/txt_order"
+        android:textColor="@color/ColorWhite"
+        android:textSize="@dimen/dimen_btn_txt_15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_home"
+        android:title="Trang chủ"
+        android:icon="@drawable/icons8_home_50"
+        />
+    <item
+        android:id="@+id/fragment_booktable"
+        android:title="Đặt hàng"
+        android:icon="@drawable/icons8shoppingbag50"
+        />
+
+    <item
+        android:id="@+id/fragment_sale"
+        android:title="Ưu đãi"
+        android:icon="@drawable/icons8_sale_48"
+        />
+
+    <item
+        android:id="@+id/fragment_profile"
+        android:title="Tài khoản"
+        android:icon="@drawable/icons8_person_50"
+        />
+
+</menu>
