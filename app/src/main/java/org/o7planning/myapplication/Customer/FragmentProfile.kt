@@ -95,24 +95,26 @@ class FragmentProfile : Fragment() {
             1 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_history)
+                (activity as MainActivity).hideBottomNavigation()
             }
             2 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_payment_method)
+                (activity as MainActivity).hideBottomNavigation()
             }
             3 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_notification)
+                (activity as MainActivity).hideBottomNavigation()
             }
             4 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_personal_information)
-
+                (activity as MainActivity).hideBottomNavigation()
             }
             5 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
             }
-
             else  -> {
                 Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
                 val navOptions = androidx.navigation.navOptions {
