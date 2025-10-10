@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -192,9 +193,19 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
         alertDialog.show()
     }
 
-    override fun refuseRealtime(id: String) {
-        dbRefVoucher.child(id).removeValue()
-        Toast.makeText(requireContext(),"Xoa thanh cong!", Toast.LENGTH_SHORT).show()
+    override fun refuseRealtime(id: String, voucher:String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Xoá Voucher ${voucher}")
+        builder.setMessage("Bạn có chắc chắn muốn xoá voucher ${voucher} khỏi chuỗi cửa hàng của mình không ?")
+        builder.setPositiveButton("Đồng ý"){dialog , which->
+            dbRefVoucher.child(id).removeValue()
+            Toast.makeText(requireContext(),"Bạn đã xoá voucher ${voucher}", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No"){ dialog, which->
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     override fun onDestroyView() {

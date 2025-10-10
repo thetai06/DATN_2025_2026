@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -15,7 +18,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.o7planning.myapplication.Owner.FragmentOverview
 import org.o7planning.myapplication.R
+import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.databinding.FragmentHomeBinding
@@ -28,6 +33,7 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
     private lateinit var listOutstanding: ArrayList<dataStore>
     private lateinit var outstandingAdapter: RvOutstanding
     private lateinit var dbRefTheBooking: DatabaseReference
+    private lateinit var dbRefOverview: DatabaseReference
     private lateinit var listBooking: ArrayList<dataTableManagement>
     private lateinit var bookingAdapter: RvTheBooking
     private lateinit var mAuth: FirebaseAuth
@@ -45,6 +51,8 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
         super.onViewCreated(view, savedInstanceState)
         dbRefOutstanding = FirebaseDatabase.getInstance().getReference("dataStore")
         listOutstanding = arrayListOf()
+
+        dbRefOverview = FirebaseDatabase.getInstance().getReference("dataOverview")
 
         dbRefTheBooking = FirebaseDatabase.getInstance().getReference("dataBookTable")
         listBooking = arrayListOf()
@@ -219,14 +227,50 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
     fun handleClickOutstanding(item: dataStore, position: Int) {
         when (position) {
             else -> {
-                Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.fragment_booktable)
+                val builder = AlertDialog.Builder(requireContext())
+                val dialogView = layoutInflater.inflate(R.layout.dialog_view_store, null)
+                builder.setView(dialogView)
+                builder.setCancelable(false)
+                val alertDialog: AlertDialog = builder.create()
+
+                val nameBar = dialogView.findViewById<TextView>(R.id.nameBar)
+                val locationBar = dialogView.findViewById<TextView>(R.id.locationBar)
+                val phoneBar = dialogView.findViewById<TextView>(R.id.phoneBar)
+                val emailBar = dialogView.findViewById<TextView>(R.id.emailBar)
+                val timeBar = dialogView.findViewById<TextView>(R.id.timeBar)
+                val tableBar = dialogView.findViewById<TextView>(R.id.tableBar)
+                val desBar = dialogView.findViewById<TextView>(R.id.desBar)
+                val btnExit = dialogView.findViewById<ImageButton>(R.id.btnExit)
+                btnExit.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+                dbRefOverview.child(item.storeId.toString()).addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+                            val overviewData = snapshot.getValue(dataOverviewOwner::class.java)
+                            nameBar.text = overviewData?.name.toString()
+                            locationBar.text = overviewData?.location.toString()
+                            phoneBar.text = "Số điệt thoại: ${item.phone}"
+                            emailBar.text = "Email: ${item.email}"
+                            timeBar.text = "Thời gian hoạt động: ${overviewData?.openingHour.toString()} - ${overviewData?.closingHour.toString()}"
+                            tableBar.text = "Số lượng bàn: ${overviewData?.sumTable.toString()}"
+                            desBar.text = item.des
+
+                            alertDialog.show()
+                        } else {
+                            Toast.makeText(requireContext(), "Không tìm thấy dữ liệu chi tiết cho cửa hàng này.", Toast.LENGTH_LONG).show()
+                        }
+                        }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
             }
         }
     }
 
     override fun onClickOderOutStanding(name: String, location: String) {
-
+        val action = FragmentHomeDirections.actionFragmentHomeToFragmentBooktable(name, location)
+        findNavController().navigate(action)
     }
 
 

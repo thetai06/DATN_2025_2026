@@ -28,15 +28,16 @@ class RvOutstanding(val list: List<dataStore>, private val listenner: FragmentHo
 
     override fun onBindViewHolder(holder: viewHolderItem, position: Int) {
         holder.binding.apply {
+            val data = list[position]
             imgLogoShop.setImageResource(R.drawable.icons8_ball_32)
-            txtNameShop.text = list[position].name
-            txtLocationBook.text = list[position].address
-            txtDescShop.text = list[position].des
+            txtNameShop.text = data.name
+            txtLocationBook.text = "Cơ sở: ${data.address}"
+            txtDescShop.text = "Số lượng bàn: ${data.tableNumber}"
             root.setOnClickListener {
-                onClickItem?.invoke(list[position], position)
+                onClickItem?.invoke(data, position)
             }
             btnOrder.setOnClickListener {
-                listenner.onClickOderOutStanding(list[position].name.toString(), list[position].address.toString())
+                listenner.onClickOderOutStanding(data.name.toString(), data.address.toString())
             }
         }
     }

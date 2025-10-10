@@ -15,7 +15,7 @@ android {
         minSdk = 33
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-auth:latest_version")
+    implementation("com.google.firebase:firebase-database:latest_version")
+
     implementation(libs.firebase.database)
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-auth")

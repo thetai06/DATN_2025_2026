@@ -51,7 +51,7 @@
         android:id="@+id/txtVoteShop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 sao"
+        android:text="Đánh giá: 5 sao"
         android:textSize="@dimen/dimen_txt_16sp"
         app:layout_constraintLeft_toLeftOf="@+id/txtDescShop"
         app:layout_constraintTop_toBottomOf="@+id/txtDescShop"

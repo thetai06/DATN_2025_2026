@@ -1,5 +1,6 @@
 package org.o7planning.myapplication.Customer
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -9,9 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.RadioButton
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.o7planning.myapplication.R
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.databinding.FragmentBooktableBinding
@@ -56,6 +62,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
     private var totalTables: String? = null
     private var openingHour: String? = null
     private var closingHour: String? = null
+    private var totalPrice: Double? = 0.0
 
     private lateinit var binding: FragmentBooktableBinding
     override fun onCreateView(
@@ -151,6 +158,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             dbRefBooktable.child(idBooking).setValue(dataOder)
                 .addOnSuccessListener {
                     Toast.makeText(requireContext(), "Thanh cong", Toast.LENGTH_SHORT).show()
+                    dialogPaymentMethod()
                     if (dataDate != null && dataLocation != null) {
                         updateDailyStatistics(dataDate!!, dataLocation!!)
                     }
@@ -159,6 +167,32 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
                     Toast.makeText(requireContext(), "khong thanh cong", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    private fun dialogPaymentMethod() {
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogview = layoutInflater.inflate(R.layout.dialog_payment_method,null)
+        builder.setView(dialogview)
+        builder.setCancelable(false)
+        val alertDialog: AlertDialog = builder.create()
+
+        val price = dialogview.findViewById<TextView>(R.id.tvPrice)
+        val rbWallet = dialogview.findViewById<RadioButton>(R.id.rbWallet)
+        val rbCash = dialogview.findViewById<RadioButton>(R.id.rbCash)
+        val btnCancel = dialogview.findViewById<Button>(R.id.btnCancel)
+        val btnPay = dialogview.findViewById<Button>(R.id.btnPay)
+
+        price.text = totalPrice.toString()
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        btnPay.setOnClickListener {
+            alertDialog.dismiss()
+            Toast.makeText(requireContext(),"Thanh toán thành công!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.fragment_home)
+        }
+        alertDialog.show()
     }
 
     private fun calculateTablePrice(
@@ -337,7 +371,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         storeId = id
         storeOwnerId = ownerId
         nameCLB = name
-        binding.txtSelectClb.text = "Quán: $name, Cơ sở: $location"
+        binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $location"
         dataLocation = location
         loadTableCountForSelectedStore(location)
         updatePrice()
@@ -410,7 +444,10 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         val name = arguments?.getString("name")
         val location = arguments?.getString("location")
         storeOwnerId = arguments?.getString("id")
-        binding.txtSelectClb.text = "Quán: $name, Cơ sở: $location"
+        binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $location"
+        dataLocation = location
+        nameCLB = name
+
         if (name != null) {
             binding.boxClbBia.visibility = View.GONE
         }
@@ -469,7 +506,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             && dataPeople != null && dataLocation != null
         ) {
 
-            val totalPrice = calculateTablePrice(
+            totalPrice = calculateTablePrice(
                 dataGame,
                 dataDate,
                 dataStartTime!!,

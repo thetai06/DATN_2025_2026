@@ -66,7 +66,6 @@ class FragmentSale: Fragment(), onClickVoucherListenner {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         }
         dbRefSale.addValueEventListener(voucherValueEventListener)

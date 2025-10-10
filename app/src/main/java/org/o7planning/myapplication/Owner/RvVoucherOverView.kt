@@ -8,7 +8,7 @@ import org.o7planning.myapplication.databinding.ItemRvVoucheroverviewBinding
 
 interface onVoucherRealtimeClick{
     fun editVoucher(dataVoucher: dataVoucher)
-    fun refuseRealtime(id:String)
+    fun refuseRealtime(id:String, voucher:String)
 }
 
 class RvVoucherOverView(
@@ -32,15 +32,16 @@ class RvVoucherOverView(
     ) {
 
         holder.binding.apply {
-            titleVoucher.text = list[position].des
-            clbVoucher.text = list[position].voucherToClb
-            dateVoucher.text = list[position].voucherTime
-            voucherCode.text = list[position].voucherCode
+            val data = list[position]
+            titleVoucher.text = data.des
+            clbVoucher.text = data.voucherToClb
+            dateVoucher.text = data.voucherTime
+            voucherCode.text = data.voucherCode
             btnEditVoucher.setOnClickListener {
-                listenner.editVoucher(list[position])
+                listenner.editVoucher(data)
             }
             btnRefuseRealtime.setOnClickListener {
-                listenner.refuseRealtime(list[position].id.toString())
+                listenner.refuseRealtime(data.id.toString(), data.voucherCode.toString())
             }
         }
 

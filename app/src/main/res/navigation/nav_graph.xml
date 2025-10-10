@@ -106,7 +106,15 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_booktable"
-            app:destination="@id/fragment_booktable" />
+            app:destination="@id/fragment_booktable" >
+            <argument
+                android:name="name"
+                app:argType="string"/>
+            <argument
+                android:name="location"
+                app:argType="string"/>
+
+        </action>
         <action
             android:id="@+id/action_fragment_home_to_fragment_sale"
             app:destination="@id/fragment_sale" />

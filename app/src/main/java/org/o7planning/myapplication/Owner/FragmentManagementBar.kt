@@ -1,11 +1,13 @@
 package org.o7planning.myapplication.Owner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -183,9 +185,10 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
 
     override fun onClickEditBar(data: dataStore) {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogView = layoutInflater.inflate(R.layout.dialog_store_edit,null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_store,null)
         builder.setView(dialogView)
         val alerDialog = builder.create()
+        val title = dialogView.findViewById<TextView>(R.id.title)
         val edtName = dialogView.findViewById<EditText>(R.id.edtName)
         val edtLocation = dialogView.findViewById<EditText>(R.id.edtLocation)
         val edtNumberPhone = dialogView.findViewById<EditText>(R.id.edtNumberPhone)
@@ -196,6 +199,7 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
         val edtDes = dialogView.findViewById<EditText>(R.id.edtDes)
         val btnAddStore = dialogView.findViewById<Button>(R.id.btnConfirmAddStore)
 
+        title.setText("Chỉnh sửa thông tin cửa hàng")
         edtName.setText(data.name)
         edtLocation.setText(data.address)
         edtNumberPhone.setText(data.phone)
@@ -215,6 +219,7 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
             val des = edtDes.text.toString().trim()
             updateStoreData(data.storeId, name, location, phoneNumber, email, tableNumber, des,openingHour,closingHour, alerDialog)
         }
+        alerDialog.show()
     }
 
     private fun updateStoreData(storeId: String?, name: String, location: String, phoneNumber:String, email: String, tableNumber:String, des:String, openingHour: String, closingHour: String, alerDialog: AlertDialog){
