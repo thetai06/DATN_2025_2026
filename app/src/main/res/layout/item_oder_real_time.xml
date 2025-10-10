@@ -51,13 +51,30 @@
         app:layout_constraintTop_toBottomOf="@+id/name_Realtime"/>
 
     <ImageView
+        android:id="@+id/ivaddress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icons8_location_50"
+        app:layout_constraintRight_toLeftOf="@+id/time_Realtime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Địa chỉ cơ sở"
+        app:layout_constraintLeft_toRightOf="@+id/ivaddress"
+        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+
+    <ImageView
         android:id="@+id/iv_Person"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/icons8group48"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/person_Realtime"
-        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+        app:layout_constraintTop_toBottomOf="@+id/address"/>
     <TextView
         android:id="@+id/person_Realtime"
         android:layout_width="wrap_content"
@@ -65,7 +82,7 @@
         android:padding="5dp"
         android:text="4 người chơi"
         app:layout_constraintLeft_toRightOf="@+id/iv_Person"
-        app:layout_constraintTop_toBottomOf="@+id/time_Realtime"/>
+        app:layout_constraintTop_toBottomOf="@+id/address"/>
 
     <ImageView
         android:id="@+id/iv_Money"
@@ -89,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:text="Chờ xử lý"
         android:background="@drawable/bg_startic"
         app:layout_constraintTop_toTopOf="parent"
@@ -102,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="Xác nhận"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="5dp"
         android:textColor="@color/ColorWhite"
         android:textSize="10dp"
@@ -118,7 +135,7 @@
         android:textSize="10dp"
         android:background="@drawable/bg_btn_refuse"
         android:textColor="@color/ColorWhite"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="Từ chối"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_Realtime"

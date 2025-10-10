@@ -135,6 +135,27 @@
         <action
             android:id="@+id/action_fragment_profile_to_fragment_upgrade"
             app:destination="@+id/fragment_upgrade"/>
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_history"
+            app:destination="@+id/fragment_history"/>
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_notification"
+            app:destination="@+id/fragment_notification"/>
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_payment_method"
+            app:destination="@+id/fragment_payment_method"/>
+        <action
+            android:id="@+id/action_fragment_profile_to_fragment_information"
+            app:destination="@+id/fragment_information"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_history"
+        android:name="org.o7planning.myapplication.Customer.FragmentHistory"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/fragment_history_to_fragment_profile"
+            app:destination="@+id/fragment_profile"/>
     </fragment>
 
     <fragment
@@ -144,6 +165,33 @@
         <action
             android:id="@+id/fragmnet_send_code_to_fragment_login"
             app:destination="@id/fragment_login"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_notification"
+        android:name="org.o7planning.myapplication.Customer.FragmentNotification"
+        tools:layout="@layout/fragment_notification">
+        <action
+            android:id="@+id/fragment_notification_to_fragment_profile"
+            app:destination="@+id/fragment_profile"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_payment_method"
+        android:name="org.o7planning.myapplication.Customer.FragmentPaymentMethod"
+        tools:layout="@layout/fragment_payment_method">
+        <action
+            android:id="@+id/fragment_payment_method_to_fragment_profile"
+            app:destination="@+id/fragment_profile"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_personal_information"
+        android:name="org.o7planning.myapplication.Customer.FragmentPersonalInformation"
+        tools:layout="@layout/fragment_personal_information">
+        <action
+            android:id="@+id/fragment_personal_information_to_fragment_profile"
+            app:destination="@+id/fragment_profile"/>
     </fragment>
 
 <!--    các fragment Chủ cửa hàng-->

@@ -1,17 +1,19 @@
 package org.o7planning.myapplication.data
 
 class dataOverviewOwner(
-    var img: Int,
-    val name: String,
-    val location: String,
-    val assessment: String,
-    val sumTable: String,
-    val confirm: String,
-    val profit: String,
-    val processing: String,
-    val statisticsStatus: String,
-    val tableActive: String,
-    val tableEmpty: String,
-    val maintenance: String
-) {
-}
+    var storeId:String?=null,
+    var ownerId:String? = null,
+    var img: Int? = null,
+    val name: String? = null,
+    val location: String? = null,
+    var sumTable: Int? = null,
+    var confirm: Int? = null,
+    var profit: Double? = null,
+    var processing: Int? = null,
+    val statisticsStatus: Int? = null,
+    var tableActive: Int? = null,
+    var tableEmpty: Int? = null,
+    var maintenance: Int? = null,
+    val openingHour: String? = null,
+    val closingHour: String? = null
+)

@@ -4,16 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.o7planning.myapplication.R
-import org.o7planning.myapplication.data.dataStort
+import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.databinding.ItemClbBiaBinding
+import android.graphics.Color
 
 interface onOrderClickListener{
-    fun onOrderClick(name: String, location: String)
+    fun onOrderClick(id:String, ownerId:String, name: String, location: String)
 }
 
-class RvClbBia(val list:List<dataStort>, private val listener: onOrderClickListener): RecyclerView.Adapter<RvClbBia.viewHolderItem>() {
+class RvClbBia(val list:List<dataStore>, private val listener: onOrderClickListener): RecyclerView.Adapter<RvClbBia.viewHolderItem>() {
 
-    var onClickItem:((dataStort, pos: Int)-> Unit)? = null
+    var onClickItem:((dataStore, pos: Int)-> Unit)? = null
 
     private var selectionPosition: Int = RecyclerView.NO_POSITION
 
@@ -32,10 +33,12 @@ class RvClbBia(val list:List<dataStort>, private val listener: onOrderClickListe
         position: Int
     ) {
         holder.binding.apply {
+            val data = list[position]
             if (position == selectionPosition){
                 btnOrder.setBackgroundResource(R.drawable.bg_btn_add_bar)
+                btnOrder.setTextColor(Color.WHITE)
             }else{
-                btnOrder.setBackgroundResource(R.drawable.background_bogoc_cam)
+                btnOrder.setBackgroundResource(R.drawable.bg_xam)
             }
             btnOrder.setOnClickListener {
                 val currentPosition = holder.adapterPosition
@@ -45,14 +48,14 @@ class RvClbBia(val list:List<dataStort>, private val listener: onOrderClickListe
                 selectionPosition = currentPosition
                 notifyItemChanged(selectionPosition)
 
-                listener.onOrderClick(list[position].name.toString(), list[position].address.toString())
+                listener.onOrderClick(data.storeId.toString(),data.ownerId.toString(),data.name.toString(), data.address.toString())
             }
             imgLogoShop.setImageResource(R.drawable.icons8_ball_32)
-            txtNameShop.text = list[position].name
-            txtLocationBook.text = list[position].address
-            txtDescShop.text = list[position].des
+            txtNameShop.text = data.name
+            txtLocationBook.text = data.address
+            txtDescShop.text = data.des
             root.setOnClickListener {
-                onClickItem?.invoke(list[position], position)
+                onClickItem?.invoke(data, position)
             }
         }
     }

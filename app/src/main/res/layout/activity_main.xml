@@ -29,6 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:menu="@menu/customer_menu"
         app:labelVisibilityMode="labeled"
-        />
+        app:itemBackground="@drawable/bottom_nav_line_background_selector"
+        app:itemActiveIndicatorStyle="@color/colorMain"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

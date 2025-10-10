@@ -40,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_violet"
+        android:backgroundTint="@color/color_xanhnhat"
+        android:textColor="@color/colorMain"
         android:layout_marginTop="5dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="25dp"

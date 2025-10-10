@@ -189,7 +189,7 @@
             android:layout_marginTop="20dp"
             android:padding="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/bg_btn_xam10"
+            android:background="@drawable/bg_btn_xam"
             app:layout_constraintTop_toBottomOf="@+id/edt_BankAccountNumber">
 
             <TextView

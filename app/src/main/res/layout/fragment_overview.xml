@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quản lý mã giảm giá"
-            android:textColor="@color/ColorOrgrien"
+            android:textColor="@color/colorMain"
             android:layout_marginLeft="20dp"
             android:textSize="@dimen/dimen_txt_title_22sp"
             app:layout_constraintLeft_toRightOf="@+id/ivTitle"

@@ -52,7 +52,7 @@
                 android:layout_marginHorizontal="40dp"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="20dp"
-                android:background="@drawable/bg_xamxanh"
+                android:background="@drawable/bg_xam"
                 android:inputType="textEmailSubject"
                 android:hint="Nhập email"
                 android:textSize="@dimen/dimen_txt_16sp"

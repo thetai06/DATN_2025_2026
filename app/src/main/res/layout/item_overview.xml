@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Bi-a Ông Thần Tài"
-                android:textColor="@color/ColorOrgrien"
+                android:textColor="@color/colorMain"
                 android:textSize="@dimen/dimen_txt_20sp"
                 app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Cơ sở: Hà Đông"
-                android:textColor="@color/ColorOrgrien"
+                android:textColor="@color/colorMain"
                 android:textSize="@dimen/dimen_txt_16sp"
                 app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
                 app:layout_constraintTop_toBottomOf="@+id/txt_Title_Shop" />
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Đánh giá: 5 sao"
-                android:textColor="@color/ColorOrgrien"
+                android:textColor="@color/colorMain"
                 android:textSize="@dimen/dimen_txt_16sp"
                 app:layout_constraintLeft_toRightOf="@+id/iv_TitleShop"
                 app:layout_constraintTop_toBottomOf="@+id/txtLocationOverview" />
@@ -78,42 +78,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/bg_voucher"
-            android:padding="20dp"
             app:layout_constraintTop_toBottomOf="@+id/box_txt_Title_Shop">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/iv_Title_Overview"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/icons8location100"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt_Title_Overview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Tổng quan quán"
-                    android:textColor="@color/ColorOrgrien"
-                    android:textSize="@dimen/dimen_txt_title_22sp"
-                    app:layout_constraintLeft_toRightOf="@+id/iv_Title_Overview"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/box_Statistics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/bg_xanhngoc"
                     android:padding="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_Title_Overview">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/iv_Title_Statistics"
@@ -129,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="Thống kê hôm nay"
-                        android:textColor="@color/ColorOrgrien"
+                        android:textColor="@color/colorMain"
                         android:textSize="@dimen/dimen_txt_20sp"
                         app:layout_constraintLeft_toRightOf="@+id/iv_Title_Statistics"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -154,8 +132,9 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txt_SumTable" />
 
+
                     <TextView
-                        android:id="@+id/txt_profit"
+                        android:id="@+id/txt_Processing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -165,7 +144,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/txt_Confirm" />
 
                     <TextView
-                        android:id="@+id/txt_Processing"
+                        android:id="@+id/txt_profit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -173,8 +152,7 @@
                         android:textColor="@color/color_xanhnhat"
                         android:textSize="@dimen/dimen_txt_16sp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_profit" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Processing" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="Trạng thái bàn chơi"
-                        android:textColor="@color/ColorOrgrien"
+                        android:textColor="@color/colorMain"
                         android:textSize="@dimen/dimen_txt_20sp"
                         app:layout_constraintLeft_toRightOf="@+id/iv_Title_Status"
                         app:layout_constraintTop_toTopOf="parent" />

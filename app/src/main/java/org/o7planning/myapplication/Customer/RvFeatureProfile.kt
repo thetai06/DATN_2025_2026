@@ -2,8 +2,11 @@ package org.o7planning.myapplication.Customer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import org.o7planning.myapplication.R
 import org.o7planning.myapplication.databinding.ItemFeatureProfileBinding
+import kotlin.coroutines.coroutineContext
 
 class OutDataFeatureProfile(val name:String, val icon:Int)
 
@@ -28,7 +31,13 @@ class RvFeatureProfile(val list:List<OutDataFeatureProfile>) : RecyclerView.Adap
         holder.binding.apply {
             tvTitle.text = list[position].name
             ivIcon.setImageResource(list[position].icon)
-            //lắng nghe click
+            if (tvTitle.text == "Đăng xuất"){
+                val context = tvTitle.context
+                val color = ContextCompat.getColor(context, R.color.colorRed)
+                tvTitle.setTextColor(color)
+                ivIcon.setColorFilter(color)
+                root.setBackgroundResource(R.drawable.bg_violet)
+            }
             root.setOnClickListener {
                 onClickItem?.invoke((list[position]), position)
             }

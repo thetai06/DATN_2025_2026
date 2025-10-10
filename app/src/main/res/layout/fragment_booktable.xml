@@ -17,20 +17,17 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:text="@string/txt_shop_title"
-            android:textColor="@color/ColorOrgrien"
+            android:textColor="@color/colorMain"
             android:textSize="@dimen/dimen_txt_title_22sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--    Chon the loai game-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/selectGame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_orange"
-            android:paddingBottom="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@id/txtShopTitle"
             app:layout_constraintTop_toBottomOf="@+id/txtShopTitle">
 
@@ -41,7 +38,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/txt_select_game"
-                android:textColor="@color/ColorWhite"
                 android:textSize="@dimen/dimen_txt_20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +46,7 @@
                 android:id="@+id/rvOrderGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:padding="20dp"
                 app:layout_constraintStart_toStartOf="@+id/txtSelectGameTitle"
                 app:layout_constraintTop_toBottomOf="@+id/txtSelectGameTitle" />
 
@@ -60,7 +56,6 @@
             android:id="@+id/selectDateGame"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="@+id/selectGame"
             app:layout_constraintTop_toBottomOf="@+id/selectGame">
 
@@ -81,7 +76,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/txt_title_select_game"
-                android:textColor="@color/ColorOrgrien"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintStart_toEndOf="@+id/ivLogoDateGame"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,13 +84,13 @@
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" 06 / 10 / 2003 "
+                android:hint="ngày / tháng / năm"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="20dp"
                 android:padding="10dp"
                 android:layout_marginHorizontal="10dp"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_from_input"
+                android:background="@drawable/bg_xanhngoc"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintLeft_toLeftOf="@+id/ivLogoDateGame"
                 app:layout_constraintTop_toBottomOf="@+id/txtSelectDateTitle"/>
@@ -137,7 +131,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Chọn giờ (tối thiểu 1 giờ)"
-                android:textColor="@color/ColorOrgrien"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintStart_toEndOf="@+id/ivSelectTime"
                 app:layout_constraintTop_toTopOf="parent"
@@ -150,9 +143,8 @@
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="10dp"
                 android:padding="10dp"
-                android:layout_marginHorizontal="10dp"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_from_input"
+                android:background="@drawable/bg_xanhngoc"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 android:hint="Start time"
                 app:layout_constraintTop_toBottomOf="@+id/txtSelectTimeTitle"
@@ -178,7 +170,7 @@
                 android:padding="10dp"
                 android:layout_marginHorizontal="10dp"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_from_input"
+                android:background="@drawable/bg_xanhngoc"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 android:hint="End time"
                 app:layout_constraintTop_toBottomOf="@+id/txtSelectTimeTitle"
@@ -223,7 +215,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/txt_number_peopel_title"
-                android:textColor="@color/ColorOrgrien"
                 android:textSize="@dimen/dimen_txt_20sp"
                 app:layout_constraintStart_toEndOf="@id/imgIconPeople"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -234,7 +225,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:background="@drawable/bg_from_input"
+                android:background="@drawable/bg_xanhngoc"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintTop_toBottomOf="@id/txtNumberPeople" />
 
@@ -271,7 +262,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Chọn câu lạc bộ Bi-a"
-                android:textColor="@color/ColorOrgrien"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintLeft_toRightOf="@id/iconLocation"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -280,8 +270,7 @@
                 android:id="@+id/rvClbBia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_from_input"
+                android:maxHeight="200dp"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iconLocation" />
@@ -294,7 +283,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/bg_voucher"
+            android:background="@drawable/bg_xanh"
             android:padding="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/boxClbBia">
@@ -304,7 +293,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thông tin đặt bàn:"
-                android:textColor="@color/ColorOrgrien"
+                android:textColor="@color/colorMain"
                 android:textSize="@dimen/dimen_txt_title_22sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -325,7 +314,7 @@
                 android:id="@+id/txtManyPeoPle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng người: 2 người"
+                android:text="Số lượng người: ..."
                 android:padding="5dp"
                 android:textSize="@dimen/dimen_txt_20sp"
                 app:layout_constraintStart_toStartOf="@+id/txtGameType"
@@ -346,7 +335,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Ngày: 01 / 01 /2025"
+                android:text="Ngày: ..."
                 android:textSize="@dimen/dimen_txt_20sp"
                 app:layout_constraintStart_toStartOf="@+id/txtTime"
                 app:layout_constraintTop_toBottomOf="@+id/txtTime" />
@@ -377,7 +366,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:textSize="@dimen/dimen_txt_20sp"
-                android:text="Thành tiền: "
+                android:text="Tạm tính: ..."
                 app:layout_constraintLeft_toLeftOf="@+id/edtDiscountCode"
                 app:layout_constraintTop_toBottomOf="@+id/edtDiscountCode"/>
 
@@ -385,9 +374,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnConfirmBooking"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_btn_orange"
             android:textColor="@color/ColorWhite"
             android:text="@string/btn_confirm_booking"

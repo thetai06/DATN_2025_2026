@@ -12,7 +12,6 @@
         android:text="8-ball"
         android:minWidth="140dp"
         android:textSize="13sp"
-        android:background="@drawable/bg_btn_xam10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

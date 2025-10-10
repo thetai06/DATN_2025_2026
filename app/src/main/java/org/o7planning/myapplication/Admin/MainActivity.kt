@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
         binding.bottomNavigation.visibility = View.GONE
 
-        val colorSelect = ContextCompat.getColorStateList(this, R.color.colorDefault)
+        val colorSelect = ContextCompat.getColorStateList(this, R.color.bottom_nav_color_selector)
         binding.bottomNavigation.itemTextColor = colorSelect
         binding.bottomNavigation.itemIconTintList = colorSelect
     }

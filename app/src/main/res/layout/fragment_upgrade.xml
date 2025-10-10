@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimen_btn_txt_15sp"
-                android:background="@drawable/bg_xamxanh"
+                android:background="@drawable/bg_xam"
                 android:text="Quay lại"
                 android:layout_marginLeft="10dp"
                 app:layout_constraintStart_toStartOf="parent"

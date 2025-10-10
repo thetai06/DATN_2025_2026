@@ -196,12 +196,12 @@ class FragmentRegister : Fragment() {
         findNavController().navigate(R.id.fragment_login)
     }
 
-    private fun saveUserRole(userId: String, name: String, role: String, numberPhone: String?, email: String?) {
+    private fun saveUserRole(userId: String, name: String, role: String, phoneNumber: String?, email: String?) {
         val db = FirebaseFirestore.getInstance()
         val userMap = hashMapOf(
             "name" to name,
             "role" to role,
-            "numberPhone" to numberPhone,
+            "phoneNumber" to phoneNumber,
             "email" to email,
             "createdAt" to Timestamp.now()
         )

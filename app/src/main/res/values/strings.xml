@@ -2,8 +2,8 @@
     <string name="app_name">My Application</string>
     <string name="txt_fastbooking">Đặt bàn nhanh</string>
     <string name="txt_desc_fastbooking">Tìm và đặt bàn bi-a tại CLB yêu thích</string>
-    <string name="btn_txt_fastbooking">Đặt Ngay</string>
-    <string name="txt_title_outstanding">CLB Bi-a nổi bật</string>
+    <string name="btn_txt_fastbooking">Đặt Bàn Ngay</string>
+    <string name="txt_title_outstanding">Câu lạc bộ gần bạn</string>
     <string name="txt_tournament">Giải đấu</string>
     <string name="txt_desc_tournament">Tham gia ngay</string>
     <string name="txt_order">Đặt bàn</string>
@@ -13,7 +13,7 @@
     <string name="btn_select_time">Button</string>
     <string name="txt_number_peopel_title">Số người chơi</string>
     <string name="txt_sum_peopel">1 người</string>
-    <string name="btn_confirm_booking">Đặt bàn ngay</string>
+    <string name="btn_confirm_booking">Xác nhận đặt bàn</string>
     <string name="btn_SpecialOfferReceive">Nhận ngay</string>
     <string name="txt_email">Email</string>
     <string name="txt_desc_login">Không có tài khoản?</string>

@@ -27,8 +27,13 @@ class RvTheBooking(val list: ArrayList<dataTableManagement>) : RecyclerView.Adap
     ) {
         val data = list[position]
         holder.binding.apply {
-            nameRealtime.text = data.name
-            timeRealtime.text = data.time
+            if (data.phoneNumber == "null"){
+                nameRealtime.text = "${data.name} - ${data.email}"
+            }else{
+                nameRealtime.text = "${data.name} - ${data.phoneNumber}"
+            }
+            timeRealtime.text = "Thời gian: ${data.startTime} - ${data.endTime}"
+            address.text = data.addressClb
             personRealtime.text = "${data.person} Người"
             statusRealtime.text = data.status
             manyRealtime.text = data.money

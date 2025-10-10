@@ -5,7 +5,8 @@
     android:layout_height="170dp"
     android:padding="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_violet">
+    android:background="@drawable/bg_violet"
+    android:backgroundTint="@color/colorMain">
 
     <ImageView
         android:id="@+id/imgSpecialOffer"
@@ -45,7 +46,7 @@
         android:textSize="@dimen/dimen_txt_16sp"
         android:layout_marginStart="-40dp"
         android:minWidth="150dp"
-        android:textColor="#ef35e3"
+        android:textColor="@color/colorMain"
         android:background="@drawable/bg_xanhngoc"
         android:text="@string/btn_SpecialOfferReceive"
         app:layout_constraintBottom_toBottomOf="parent"

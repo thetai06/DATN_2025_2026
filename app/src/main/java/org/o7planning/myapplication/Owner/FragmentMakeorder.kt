@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -22,6 +23,8 @@ class FragmentMakeorder : Fragment(), OnOrderConfirmListener {
     private lateinit var dbRefMakeorder: DatabaseReference
     private lateinit var listOderRealTiem: ArrayList<dataTableManagement>
     private lateinit var oderRealTime: ValueEventListener
+    private lateinit var mAuth: FirebaseAuth
+    private var ownerId:String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +36,9 @@ class FragmentMakeorder : Fragment(), OnOrderConfirmListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mAuth = FirebaseAuth.getInstance()
+        ownerId = mAuth.currentUser?.uid
 
         listOderRealTiem = arrayListOf()
 
@@ -48,13 +54,12 @@ class FragmentMakeorder : Fragment(), OnOrderConfirmListener {
                 listOderRealTiem.clear()
                 for (orderSnapshort in snapshot.children){
                     val order = orderSnapshort.getValue(dataTableManagement::class.java)
-                    if (order != null && order.btnStatus == ""){
+                    if (order != null && order.btnStatus == "" && order.storeOwnerId == ownerId){
                         order?.let { listOderRealTiem.add(it) }
                     }
                 }
                 binding.rvOrderRealTime.adapter?.notifyDataSetChanged()
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         }
@@ -93,7 +98,6 @@ class FragmentMakeorder : Fragment(), OnOrderConfirmListener {
             .addOnSuccessListener {
                 Toast.makeText(requireContext(),"Tu choi thanh cong",Toast.LENGTH_SHORT).show()
                 binding.rvOrderRealTime.adapter?.notifyDataSetChanged()
-
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(),"Tu choi khong thanh cong",Toast.LENGTH_SHORT).show()

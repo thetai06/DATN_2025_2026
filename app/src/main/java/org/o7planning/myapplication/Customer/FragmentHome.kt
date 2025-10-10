@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import org.o7planning.myapplication.R
-import org.o7planning.myapplication.data.dataStort
+import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.databinding.FragmentHomeBinding
 
@@ -25,7 +25,7 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var dbRefOutstanding: DatabaseReference
-    private lateinit var listOutstanding: ArrayList<dataStort>
+    private lateinit var listOutstanding: ArrayList<dataStore>
     private lateinit var outstandingAdapter: RvOutstanding
     private lateinit var dbRefTheBooking: DatabaseReference
     private lateinit var listBooking: ArrayList<dataTableManagement>
@@ -100,7 +100,8 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
             Toast.makeText(requireContext(), "Lỗi: Không tìm thấy ID đơn hàng.", Toast.LENGTH_SHORT).show()
             return
         }
-        dbRefTheBooking.child(id).removeValue()
+        val update = mapOf<String, Any>("status" to "Đã huỷ")
+        dbRefTheBooking.child(id).updateChildren(update)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Đơn hàng đã được Hủy thành công!", Toast.LENGTH_SHORT).show()
             }
@@ -112,26 +113,26 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
     private fun dataTheBooking() {
         val userId = mAuth.currentUser?.uid.toString()
         if (userId.isEmpty()) {
-            Toast.makeText(requireContext(), "Lỗi: Không tìm thấy người dùng", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(requireContext(), "Lỗi: Không tìm thấy người dùng", Toast.LENGTH_SHORT).show()
             return
         }
-        val userBookingsQuery = dbRefTheBooking.orderByChild("userId").equalTo(userId)
-        userBookingsQuery.addValueEventListener(object : ValueEventListener {
+        dbRefTheBooking.orderByChild("userId").equalTo(userId)
+            .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 listBooking.clear()
                 if (snapshot.exists()) {
                     for (bookingSnap in snapshot.children) {
                         val bookingData = bookingSnap.getValue(dataTableManagement::class.java)
-                        bookingData?.let { listBooking.add(it) }
+                        if (bookingData?.status == "Chờ xử lý" || bookingData?.status == "Đã xác nhận" || bookingData?.status == "Đang chơi"){
+                            bookingData.let { listBooking.add(it) }
+                        }
                     }
                 }
                 listBooking.sortBy { data: dataTableManagement ->
                     when (data.status) {
                         "Chờ xử lý" -> 0
                         "Đã xác nhận" -> 1
-                        "Đang chơi" -> 2
-                        else -> 3
+                        else -> 2
                     }
                 }
                 bookingAdapter.notifyDataSetChanged()
@@ -155,7 +156,7 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
                 listOutstanding.clear()
                 if (snapshot.exists()) {
                     for (outstandingSnap in snapshot.children) {
-                        val outstandingData = outstandingSnap.getValue(dataStort::class.java)
+                        val outstandingData = outstandingSnap.getValue(dataStore::class.java)
                         outstandingData?.let { listOutstanding.add(it) }
                     }
                 }
@@ -215,7 +216,7 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
         }
     }
 
-    fun handleClickOutstanding(item: dataStort, position: Int) {
+    fun handleClickOutstanding(item: dataStore, position: Int) {
         when (position) {
             else -> {
                 Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()

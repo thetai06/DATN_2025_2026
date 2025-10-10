@@ -58,7 +58,6 @@ class FragmentProfile : Fragment() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })
@@ -69,7 +68,6 @@ class FragmentProfile : Fragment() {
         val list = mutableListOf<OutDataFeatureProfile>()
         list.add(OutDataFeatureProfile("Nâng cấp tài khoản", R.drawable.icons8pro64))
         list.add(OutDataFeatureProfile("Lịch sử đặt bàn  ", R.drawable.icons8calendar24))
-        list.add(OutDataFeatureProfile("Thành tích và giải thưởng", R.drawable.icons8cup24))
         list.add(OutDataFeatureProfile("Phương thức thanh toán", R.drawable.icons8card24))
         list.add(OutDataFeatureProfile("Thông báo", R.drawable.icons8notification24))
         list.add(OutDataFeatureProfile("Thông tin cá nhân", R.drawable.icons8person24))
@@ -96,22 +94,25 @@ class FragmentProfile : Fragment() {
             }
             1 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.fragment_history)
             }
             2 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.fragment_payment_method)
             }
             3 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.fragment_notification)
             }
             4 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.fragment_personal_information)
+
             }
             5 -> {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
             }
-            6 -> {
-                Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
-            }
+
             else  -> {
                 Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
                 val navOptions = androidx.navigation.navOptions {

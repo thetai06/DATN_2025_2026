@@ -6,7 +6,10 @@
     <color name="ColorXamXanh">#f0f5fa</color>
     <color name="ColorXam">#d9d9d9</color>
     <color name="color_violet">#c690d3</color>
-    <color name="color_xanhnhat">#04c598</color>"
+    <color name="color_xanhnhat">#72FAD9</color>"
     <color name="colorSelected">#A3D9A5</color>
-    <color name="colorDefault">#FF7622</color>
+    <color name="colorRed">#E43D78</color>
+    <color name="colorViolet">#FD778C</color>
+    <color name="colorMain">#10b981</color>
+    <color name="colorDefault">#737a87</color>
 </resources>

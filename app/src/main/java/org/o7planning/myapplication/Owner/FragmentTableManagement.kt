@@ -8,6 +8,7 @@ import android.widget.Adapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -23,6 +24,8 @@ class FragmentTableManagement : Fragment(), setOnclickTableManagement {
     private lateinit var list: ArrayList<dataTableManagement>
     private lateinit var dbRefTableManagement: DatabaseReference
     private lateinit var tableManagementAdapter: RvTableManagement
+    private lateinit var mAuth: FirebaseAuth
+    private var ownerId:String ? = null
 
 
     override fun onCreateView(
@@ -39,6 +42,9 @@ class FragmentTableManagement : Fragment(), setOnclickTableManagement {
         dbRefTableManagement = FirebaseDatabase.getInstance().getReference("dataBookTable")
         list = arrayListOf()
 
+        mAuth = FirebaseAuth.getInstance()
+        ownerId = mAuth.currentUser?.uid
+
         boxTableManagement()
         dataBoxTableManagement()
     }
@@ -50,7 +56,7 @@ class FragmentTableManagement : Fragment(), setOnclickTableManagement {
                 if (snapshot.exists()){
                     for (listSnap in snapshot.children){
                         val listData = listSnap.getValue(dataTableManagement::class.java)
-                        if (listData != null && (listData.btnStatus == "Bắt đầu" || listData.btnStatus == "Hoàn thành")){
+                        if (listData != null && listData.storeOwnerId == ownerId && (listData.btnStatus == "Bắt đầu" || listData.btnStatus == "Hoàn thành")){
                             listData.let { list.add(it) }
                         }
                     }

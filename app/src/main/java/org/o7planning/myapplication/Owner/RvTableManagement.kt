@@ -33,8 +33,13 @@ class RvTableManagement(val list: List<dataTableManagement>,
     ) {
         holder.binding.apply {
             val data = list[position]
-            nameRealtime.text = data.name
-            timeRealtime.text = data.time
+            if (data.phoneNumber == "null"){
+                nameRealtime.text = "${data.name} - ${data.email}"
+            }else{
+                nameRealtime.text = "${data.name} - ${data.phoneNumber}"
+            }
+            timeRealtime.text = "Thời gian: ${data.startTime} - ${data.endTime}"
+            address.text = data.addressClb
             personRealtime.text = data.person + " Người"
             manyRealtime.text = data.money
             statusTableManagement.text = data.status

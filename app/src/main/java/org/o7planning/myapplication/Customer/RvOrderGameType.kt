@@ -1,6 +1,5 @@
 package org.o7planning.myapplication.Customer
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +34,7 @@ class RvBooktable(val list: List<OutDataBookTable>):
             if (position == selectedPosition){
                 btnOderGameType.setBackgroundResource(R.drawable.bg_btn_add_bar)
             }else{
-                btnOderGameType.setBackgroundResource(R.drawable.bg_xamxanh)
+                btnOderGameType.setBackgroundResource(R.drawable.bg_btn_game)
             }
             btnOderGameType.setOnClickListener {
                 val currentPosition = holder.adapterPosition

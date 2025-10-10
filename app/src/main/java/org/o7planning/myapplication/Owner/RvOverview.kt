@@ -3,6 +3,7 @@ package org.o7planning.myapplication.Owner
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.o7planning.myapplication.R
 import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.databinding.ItemOverviewBinding
 
@@ -25,18 +26,18 @@ class RvOverview(val list: List<dataOverviewOwner>) :
         position: Int
     ) {
         holder.binding.apply {
-            imgHeader.setImageResource(list[position].img)
-            txtTitleShop.text = list[position].name
-            txtLocationOverview.text = list[position].location
-            txtAssessment.text = list[position].assessment
-            txtSumTable.text = list[position].sumTable
-            txtConfirm.text = list[position].confirm
-            txtProfit.text = list[position].profit
-            txtProcessing.text = list[position].processing
-            txtStatisticsStatus.text = list[position].statisticsStatus
-            txtTableActive.text = list[position].tableActive
-            txtTableEmpty.text = list[position].tableEmpty
-            maintenance.text = list[position].maintenance
+            val data = list[position]
+            imgHeader.setImageResource(R.drawable.quan_bi_a2)
+            txtTitleShop.text = data.name
+            txtLocationOverview.text = data.location
+            txtSumTable.text = "Tổng đặt bàn: ${data.sumTable.toString()}"
+            txtConfirm.text = "Đã xác nhận: ${data.confirm.toString()}"
+            txtProfit.text = "Doanh thu: ${data.profit.toString()}"
+            txtProcessing.text = "Chờ xử lý: ${data.processing.toString()}"
+            txtStatisticsStatus.text = "Tổng bàn: ${data.statisticsStatus}"
+            txtTableActive.text = "Bàn đang hoạt động: ${data.tableActive.toString()}"
+            txtTableEmpty.text = "Bàn trống: ${data.tableEmpty.toString()}"
+            maintenance.text = "Bàn Bảo trì: ${data.maintenance.toString()}"
         }
     }
 

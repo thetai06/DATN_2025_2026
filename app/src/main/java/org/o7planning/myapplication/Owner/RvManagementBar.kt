@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.o7planning.myapplication.data.dataStort
+import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.databinding.ItemBilliardsBarManagementBinding
 
+interface setOnclickManagemenrBar{
+    fun onClickEditBar(data: dataStore)
+    fun onClickDeleteBar(data: dataStore)
+}
 
 
-class RvManagementBar(val list: List<dataStort>): RecyclerView.Adapter<RvManagementBar.viewHolderItem>() {
+class RvManagementBar(val list: List<dataStore>,
+    private val listener: setOnclickManagemenrBar): RecyclerView.Adapter<RvManagementBar.viewHolderItem>() {
 
     inner class viewHolderItem(val binding: ItemBilliardsBarManagementBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -33,12 +38,19 @@ class RvManagementBar(val list: List<dataStort>): RecyclerView.Adapter<RvManagem
                 .placeholder(org.o7planning.myapplication.R.drawable.quan_bi_a1)
                 .error(org.o7planning.myapplication.R.drawable.quan_bi_a2)
                 .into(ivManagement)
+            nameBar.text = store.name
             locationBar.text = "Cơ sở: ${store.address}"
             phoneBar.text = "Số Điện Thoại: ${store.phone}"
             emailBar.text = "Email: ${store.email}"
-            timeBar.text = "Thời gian hoạt động: ${store.operationTime}"
-            tableBar.text = "Số lượng bàn: ${store.table}"
+            timeBar.text = "Thời gian hoạt động: ${store.openingHour} - ${store.closingHour}"
+            tableBar.text = "Số lượng bàn: ${store.tableNumber}"
             desBar.text = "Tổng quan: ${store.des}"
+            btnEdit.setOnClickListener {
+                listener.onClickEditBar(store)
+            }
+            btnDelete.setOnClickListener {
+                listener.onClickDeleteBar(store)
+            }
         }
     }
 

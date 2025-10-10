@@ -30,17 +30,23 @@ class RvOrderRealTime(
     }
 
     override fun onBindViewHolder(holder: RvOrderRealTime.viewHolderItem, position: Int) {
+        val data = list[position]
         holder.binding.apply {
-            nameRealtime.text = list[position].name
-            timeRealtime.text = list[position].time
-            personRealtime.text = "${list[position].person} Người"
-            statusRealtime.text = list[position].status
-            manyRealtime.text = list[position].money
+            if (data.phoneNumber == "null"){
+                nameRealtime.text = "${data.name} - ${data.email}"
+            }else{
+                nameRealtime.text = "${data.name} - ${data.phoneNumber}"
+            }
+            timeRealtime.text = "Thời gian: ${data.startTime} - ${data.endTime}"
+            address.text = data.addressClb
+            personRealtime.text = "${data.person} Người"
+            statusRealtime.text = data.status
+            manyRealtime.text = data.money
             btnConfirmRealtime.setOnClickListener {
-                listener.onConfirmClick(list[position])
+                listener.onConfirmClick(data)
             }
             btnRefuseRealtime.setOnClickListener {
-                listener.onRefuseRealtimeClick(list[position].id.toString())
+                listener.onRefuseRealtimeClick(data.id.toString())
             }
         }
     }

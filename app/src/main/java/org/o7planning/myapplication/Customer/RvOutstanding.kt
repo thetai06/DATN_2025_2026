@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.o7planning.myapplication.R
 import org.o7planning.myapplication.data.dataOutstanding
-import org.o7planning.myapplication.data.dataStort
+import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.databinding.ItemOutstandingBinding
 
 interface  onClickOrderOutStandingListenner {
     fun onClickOderOutStanding(name: String, location: String)
 }
 
-class RvOutstanding(val list: List<dataStort>, private val listenner: FragmentHome) : RecyclerView.Adapter<RvOutstanding.viewHolderItem>() {
+class RvOutstanding(val list: List<dataStore>, private val listenner: FragmentHome) : RecyclerView.Adapter<RvOutstanding.viewHolderItem>() {
 
-    var onClickItem:((dataStort, pos:Int)-> Unit)? = null
+    var onClickItem:((dataStore, pos:Int)-> Unit)? = null
 
     inner class viewHolderItem(val binding: ItemOutstandingBinding) : RecyclerView.ViewHolder(binding.root)
 

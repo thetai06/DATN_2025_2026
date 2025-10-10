@@ -28,7 +28,8 @@
         android:hint="Tên cửa hàng"
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <EditText
         android:id="@+id/edtLocation"
@@ -40,7 +41,8 @@
         android:hint="Địa chỉ cơ sở"
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/edtName"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <EditText
         android:id="@+id/edtNumberPhone"
@@ -52,7 +54,8 @@
         android:hint="Số điện thoại"
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/edtLocation"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="wrap_content"
@@ -63,18 +66,32 @@
         android:hint="Email"
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/edtNumberPhone"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <EditText
-        android:id="@+id/edtOperationTime"
+        android:id="@+id/edtOpeningHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="250dp"
+        android:minWidth="50dp"
         android:layout_marginTop="10dp"
         android:textSize="@dimen/dimen_txt_20sp"
         android:hint="Thời gian hoạt động"
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/edtEmail"
         app:layout_constraintLeft_toLeftOf="parent"/>
+    <EditText
+        android:id="@+id/edtClosingHour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="50dp"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Thời gian hoạt động"
+        android:textColor="@color/ColorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:layout_constraintLeft_toRightOf="@+id/edtOpeningHour"
+        app:layout_constraintRight_toRightOf="parent"
+        />
     <EditText
         android:id="@+id/edtNumberTable"
         android:layout_width="wrap_content"
@@ -84,8 +101,9 @@
         android:textSize="@dimen/dimen_txt_20sp"
         android:hint="Số lượng bàn tại cơ sở"
         android:textColor="@color/ColorWhite"
-        app:layout_constraintTop_toBottomOf="@+id/edtOperationTime"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtOpeningHour"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <EditText
         android:id="@+id/edtDes"
         android:layout_width="wrap_content"
@@ -96,7 +114,8 @@
         android:hint="Ghi chú..."
         android:textColor="@color/ColorWhite"
         app:layout_constraintTop_toBottomOf="@+id/edtNumberTable"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnConfirmAddStore"

@@ -1,8 +1,6 @@
 package org.o7planning.myapplication.Owner
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +9,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.privacysandbox.ads.adservices.customaudience.CustomAudience
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.recaptcha.internal.zzrq
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.serialization.descriptors.listSerialDescriptor
 import org.o7planning.myapplication.R
 import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.data.dataVoucher
 import org.o7planning.myapplication.databinding.FragmentOverviewBinding
-import java.nio.file.attribute.AclEntry
-import java.util.Collections.list
 
 class FragmentOverview : Fragment(), onVoucherRealtimeClick {
 
@@ -35,6 +28,12 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
     private lateinit var voucherAdaper: RvVoucherOverView
     private lateinit var voucherValueEventListener: ValueEventListener
     private lateinit var listVoucher: ArrayList<dataVoucher>
+    private lateinit var dbRefOverview: DatabaseReference
+    private lateinit var overviewAdapter: RvOverview
+    private lateinit var overviewValueEventList: ValueEventListener
+    private lateinit var listOverview: ArrayList<dataOverviewOwner>
+    private lateinit var mAuth: FirebaseAuth
+    private var ownerId:String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +47,39 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
         super.onViewCreated(view, savedInstanceState)
         dbRefVoucher = FirebaseDatabase.getInstance().getReference("dataVoucher")
         listVoucher = arrayListOf()
+        dbRefOverview = FirebaseDatabase.getInstance().getReference("dataOverview")
+        listOverview = arrayListOf()
+
+        mAuth = FirebaseAuth.getInstance()
+        ownerId = mAuth.currentUser?.uid.toString()
 
         setUpAddVoucher()
         setUpVoucherOverview()
-        displayInformation()
+        setUpOverview()
+        dataToOverview()
+    }
+
+    private fun dataToOverview() {
+        overviewValueEventList = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listOverview.clear()
+                if (snapshot.exists()){
+                    for (overviewSnap in snapshot.children){
+                        val overviewData = overviewSnap.getValue(dataOverviewOwner::class.java)
+                        if(overviewData?.ownerId == ownerId){
+                            overviewData?.let { listOverview.add(it) }
+                        }
+                    }
+                }
+                overviewAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        dbRefOverview.addValueEventListener(overviewValueEventList)
     }
 
     private fun setUpVoucherOverview() {
@@ -76,7 +104,7 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         }
         dbRefVoucher.addValueEventListener(voucherValueEventListener)
@@ -84,6 +112,16 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
 
     }
 
+    private fun setUpOverview() {
+        overviewAdapter = RvOverview(listOverview)
+        binding.rvOverview.adapter = overviewAdapter
+        binding.rvOverview.layoutManager = GridLayoutManager(
+            requireContext(),
+            1,
+            GridLayoutManager.HORIZONTAL,
+            false
+        )
+    }
 
     private fun setUpAddVoucher() {
         binding.btnAddVoucher.setOnClickListener {
@@ -91,6 +129,7 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
             val dialogView = layoutInflater.inflate(R.layout.dialog_add_voucher,null)
             builder.setView(dialogView)
             val alertDialog = builder.create()
+
             val edtDes = dialogView.findViewById<EditText>(R.id.edtDes)
             val edtVoucherToClb = dialogView.findViewById<EditText>(R.id.edtVoucherToClb)
             val edtVoucherTiem = dialogView.findViewById<EditText>(R.id.edtVoucherTime)
@@ -117,22 +156,6 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
 
     }
 
-    private fun displayInformation() {
-        val list = mutableListOf<dataOverviewOwner>()
-        list.add((dataOverviewOwner(R.drawable.quan_bi_a1,"Bi-a Ông Thần Tài","Hà Nội","Đánh giá: 4 sao",
-            "Tổng đặt bàn 20", "Đã xác nhận: 8", "Chờ xử lý: 2","Doanh thu 1.000.000",
-            "Tổng bàn: 20", "Đang hoạt động: 5","Bàn trống: 2" ,"Bảo trì: 1")))
-        list.add((dataOverviewOwner(R.drawable.quan_bi_a2,"Bi-a Ông Thần Tài","Nga Sơn","Đánh giá: 5 sao",
-            "Tổng đặt bàn 30", "Đã xác nhận: 18", "Chờ xử lý: 12","Doanh thu 10.000.000",
-            "Tổng bàn: 30", "Đang hoạt động: 15","Bàn trống: 12" ,"Bảo trì: 2")))
-        binding.rvOverview.adapter = RvOverview(list)
-        binding.rvOverview.layoutManager = GridLayoutManager(
-            requireContext(),
-            1,
-            GridLayoutManager.HORIZONTAL,
-            false
-        )
-    }
 
     override fun editVoucher(dataVoucher: dataVoucher) {
         val builder = AlertDialog.Builder(requireContext())
@@ -177,5 +200,6 @@ class FragmentOverview : Fragment(), onVoucherRealtimeClick {
     override fun onDestroyView() {
         super.onDestroyView()
         dbRefVoucher.removeEventListener(voucherValueEventListener)
+        dbRefOverview.removeEventListener(overviewValueEventList)
     }
 }
