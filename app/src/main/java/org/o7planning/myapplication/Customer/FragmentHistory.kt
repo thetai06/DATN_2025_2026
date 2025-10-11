@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.api.ResourceDescriptor
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +44,13 @@ class FragmentHistory : Fragment() {
         userId = mAuth.currentUser?.uid
 
         setUpHistory()
+        setUpBack()
+    }
+
+    private fun setUpBack() {
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setUpHistory() {

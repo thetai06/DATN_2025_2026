@@ -43,5 +43,7 @@
     <string name="_1_1_2025">1/1/2025</string>
     <string name="l_u_thay_i">Lưu thay đổi</string>
     <string name="h_nh_nh_n_t_quay_l_i">Hình ảnh nút quay lại</string>
+    <string name="l_ch_s_t_b_n">Lịch sử đặt bàn</string>
+    <string name="ph_ng_th_c_thanh_to_n">Phương thức thanh toán</string>
 
 </resources>

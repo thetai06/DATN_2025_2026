@@ -88,27 +88,22 @@ class FragmentProfile : Fragment() {
     fun handleClick(item: OutDataFeatureProfile, position: Int) {
         when (position) {
             0 -> {
-                Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_upgrade)
                 (activity as MainActivity).hideBottomNavigation()
             }
             1 -> {
-                Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_history)
                 (activity as MainActivity).hideBottomNavigation()
             }
             2 -> {
-                Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_payment_method)
                 (activity as MainActivity).hideBottomNavigation()
             }
             3 -> {
-                Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_notification)
                 (activity as MainActivity).hideBottomNavigation()
             }
             4 -> {
-                Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.fragment_personal_information)
                 (activity as MainActivity).hideBottomNavigation()
             }
@@ -116,7 +111,6 @@ class FragmentProfile : Fragment() {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
             }
             else  -> {
-                Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
                 val navOptions = androidx.navigation.navOptions {
                     popUpTo(R.id.nav_graph){
                         inclusive = true
