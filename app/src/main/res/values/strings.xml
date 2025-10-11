@@ -3,7 +3,7 @@
     <string name="txt_fastbooking">Đặt bàn nhanh</string>
     <string name="txt_desc_fastbooking">Tìm và đặt bàn bi-a tại CLB yêu thích</string>
     <string name="btn_txt_fastbooking">Đặt Bàn Ngay</string>
-    <string name="txt_title_outstanding">Câu lạc bộ gần bạn</string>
+    <string name="txt_title_outstanding">Tìm kiếm câu lạc bộ</string>
     <string name="txt_tournament">Giải đấu</string>
     <string name="txt_desc_tournament">Tham gia ngay</string>
     <string name="txt_order">Đặt bàn</string>
@@ -18,7 +18,6 @@
     <string name="txt_email">Email</string>
     <string name="txt_desc_login">Không có tài khoản?</string>
     <string name="txt_or">hoặc</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment111</string>
     <string name="txt_signup">Đăng Ký</string>
     <string name="txt_name">Name</string>
@@ -33,5 +32,14 @@
     <string name="step_title_1">Bước 1</string>
     <string name="des_title_upgrade">Trở thành chủ cửa hàng bi-a và mở rộng kinh doanh</string>
     <string name="txt_title_upgrade">Nâng cấp tài khoản</string>
+    <string name="h_nh_nh_n_t_quay_l_i">Nút quay lại</string>
+    <string name="l_ch_s_t_b_n">Lịch sử đặt bàn</string>
+    <string name="ph_ng_th_c_thanh_to_n">Phương thức thanh toán</string>
+    <string name="th_ng_tin_c_nh_n">Thông tin cá nhân</string>
+    <string name="h_v_t_n">Họ và tên</string>
+    <string name="name">Nguyễn Văn A</string> <string name="email">Email</string>
+    <string name="s_i_n_thoai">Số điện thoại</string>
+    <string name="_035_56">035******56</string> <string name="ng_y_sinh">Ngày sinh</string>
+    <string name="_1_1_2025">01/01/2000</string> <string name="l_u_thay_i">Lưu thay đổi</string>
 
 </resources>

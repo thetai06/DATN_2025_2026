@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.Spinner
 import android.widget.TextView
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import org.o7planning.myapplication.R
+import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.data.dataStore
 import org.o7planning.myapplication.databinding.FragmentBooktableBinding
@@ -335,11 +337,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         storeAdapter = RvClbBia(listStore, this)
         binding.rvClbBia.adapter = storeAdapter.apply {
             onClickItem = { item, pos ->
-                Toast.makeText(
-                    requireContext(),
-                    item.name + ", " + item.address,
-                    Toast.LENGTH_SHORT
-                ).show()
+                dialogViewStore(item)
             }
         }
         binding.rvClbBia.layoutManager = GridLayoutManager(
@@ -365,6 +363,45 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             }
         }
         dbRefStore.addValueEventListener(storeValueEventListener)
+    }
+
+    private fun dialogViewStore(item: dataStore){
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.dialog_view_store,null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        val alertDialog: AlertDialog = builder.create()
+        val nameBar = dialogView.findViewById<TextView>(R.id.nameBar)
+        val locationBar = dialogView.findViewById<TextView>(R.id.locationBar)
+        val phoneBar = dialogView.findViewById<TextView>(R.id.phoneBar)
+        val emailBar = dialogView.findViewById<TextView>(R.id.emailBar)
+        val timeBar = dialogView.findViewById<TextView>(R.id.timeBar)
+        val tableBar = dialogView.findViewById<TextView>(R.id.tableBar)
+        val desBar = dialogView.findViewById<TextView>(R.id.desBar)
+        val btnExit = dialogView.findViewById<ImageButton>(R.id.btnExit)
+        btnExit.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dbRefOverview.child(item.storeId.toString()).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val overviewData = snapshot.getValue(dataOverviewOwner::class.java)
+                    nameBar.text = overviewData?.name.toString()
+                    locationBar.text = overviewData?.location.toString()
+                    phoneBar.text = "Số điệt thoại: ${item.phone}"
+                    emailBar.text = "Email: ${item.email}"
+                    timeBar.text = "Thời gian hoạt động: ${overviewData?.openingHour.toString()} - ${overviewData?.closingHour.toString()}"
+                    tableBar.text = "Số lượng bàn: ${overviewData?.sumTable.toString()}"
+                    desBar.text = item.des
+
+                    alertDialog.show()
+                } else {
+                    Toast.makeText(requireContext(), "Không tìm thấy dữ liệu chi tiết cho cửa hàng này.", Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 
     override fun onOrderClick(id: String, ownerId: String, name: String, location: String) {

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import org.o7planning.myapplication.Owner.FragmentOverview
 import org.o7planning.myapplication.R
 import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.data.dataStore
@@ -30,7 +29,8 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var dbRefOutstanding: DatabaseReference
-    private lateinit var listOutstanding: ArrayList<dataStore>
+    private lateinit var listOutstanding: ArrayList<dataStore> // Danh sách để hiển thị
+    private lateinit var listOutstandingSearch: ArrayList<dataStore> // Danh sách chứa toàn bộ dữ liệu gốc
     private lateinit var outstandingAdapter: RvOutstanding
     private lateinit var dbRefTheBooking: DatabaseReference
     private lateinit var dbRefOverview: DatabaseReference
@@ -51,6 +51,7 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
         super.onViewCreated(view, savedInstanceState)
         dbRefOutstanding = FirebaseDatabase.getInstance().getReference("dataStore")
         listOutstanding = arrayListOf()
+        listOutstandingSearch = arrayListOf()
 
         dbRefOverview = FirebaseDatabase.getInstance().getReference("dataOverview")
 
@@ -59,14 +60,75 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
 
         mAuth = FirebaseAuth.getInstance()
 
-
         itemLayoutTournament()
         itemLayoutTheBooking()
         itemLayoutOutstanding()
         dataTheBooking()
         dataOutStanding()
+
+        setupSearchView()
     }
 
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText.orEmpty())
+                return true
+            }
+        })
+    }
+
+    private fun filterList(query: String) {
+        listOutstanding.clear()
+
+        if (query.isEmpty()) {
+            listOutstanding.addAll(listOutstandingSearch.take(10))
+        } else {
+            val filteredResults = listOutstandingSearch.filter { store ->
+                val nameMatch = store.name?.contains(query, ignoreCase = true) == true
+                val locationMatch = store.address?.contains(query, ignoreCase = true) == true
+                nameMatch || locationMatch
+            }
+            listOutstanding.addAll(filteredResults)
+        }
+        outstandingAdapter.notifyDataSetChanged()
+    }
+
+    private fun dataOutStanding() {
+        dbRefOutstanding.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listOutstandingSearch.clear()
+                if (snapshot.exists()) {
+                    for (outstandingSnap in snapshot.children) {
+                        val outstandingData = outstandingSnap.getValue(dataStore::class.java)
+                        outstandingData?.let { listOutstandingSearch.add(it) }
+                    }
+                }
+                filterList(binding.searchView.query.toString())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Lỗi tải dữ liệu nổi bật: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun itemLayoutOutstanding() {
+        outstandingAdapter = RvOutstanding(listOutstanding, this)
+        binding.rvOutstanding.adapter = outstandingAdapter.apply {
+            onClickItem = { item, pos ->
+                handleClickOutstanding(item, pos)
+            }
+        }
+        binding.rvOutstanding.layoutManager = GridLayoutManager(
+            requireContext(),
+            1,
+            GridLayoutManager.VERTICAL,
+            false
+        )
+    }
 
     private fun itemLayoutTheBooking() {
         bookingAdapter = RvTheBooking(listBooking)
@@ -156,41 +218,6 @@ class FragmentHome : Fragment(), onClickOrderOutStandingListenner {
 
         })
 
-    }
-
-    private fun dataOutStanding() {
-        dbRefOutstanding.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                listOutstanding.clear()
-                if (snapshot.exists()) {
-                    for (outstandingSnap in snapshot.children) {
-                        val outstandingData = outstandingSnap.getValue(dataStore::class.java)
-                        outstandingData?.let { listOutstanding.add(it) }
-                    }
-                }
-                outstandingAdapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(), "Lỗi tải dữ liệu nổi bật: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
-    private fun itemLayoutOutstanding() {
-        outstandingAdapter = RvOutstanding(listOutstanding, this)
-        binding.rvOutstanding.adapter = outstandingAdapter.apply {
-            onClickItem = { item, pos ->
-                handleClickOutstanding(item, pos)
-            }
-        }
-        binding.rvOutstanding.layoutManager = GridLayoutManager(
-            requireContext(),
-            1,
-            GridLayoutManager.VERTICAL,
-            false
-        )
     }
 
     fun itemLayoutTournament() {

@@ -44,6 +44,11 @@ class FragmentProfile : Fragment() {
         boxFeatureProfile()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).showBottomNavigation()
+    }
+
     private fun boxProfile() {
         val userId = mAuth.currentUser?.uid.toString()
 
@@ -86,7 +91,13 @@ class FragmentProfile : Fragment() {
         )
     }
     fun handleClick(item: OutDataFeatureProfile, position: Int) {
+        val navOptions = androidx.navigation.navOptions {
+            popUpTo(R.id.nav_graph){
+                inclusive = true
+            }
+        }
         when (position) {
+
             0 -> {
                 findNavController().navigate(R.id.fragment_upgrade)
                 (activity as MainActivity).hideBottomNavigation()
@@ -111,18 +122,12 @@ class FragmentProfile : Fragment() {
                 Toast.makeText(requireContext(), item.name , Toast.LENGTH_SHORT).show()
             }
             else  -> {
-                val navOptions = androidx.navigation.navOptions {
-                    popUpTo(R.id.nav_graph){
-                        inclusive = true
-                    }
-                }
                 mAuth.signOut()
                 (activity as MainActivity).hideBottomNavigation()
                 findNavController().navigate(R.id.fragment_splash,null,navOptions)
             }
         }
     }
-
 
 
 
