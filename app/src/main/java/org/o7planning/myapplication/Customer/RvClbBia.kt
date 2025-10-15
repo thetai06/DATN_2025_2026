@@ -34,6 +34,13 @@ class RvClbBia(val list:List<dataStore>, private val listener: onOrderClickListe
     ) {
         holder.binding.apply {
             val data = list[position]
+            imgLogoShop.setImageResource(R.drawable.icons8_ball_32)
+            txtNameShop.text = data.name
+            txtLocationBook.text = "Cơ sở: ${data.address}"
+            txtDescShop.text = "Số lượng bàn:  / ${data.tableNumber}"
+            root.setOnClickListener {
+                onClickItem?.invoke(data, position)
+            }
             if (position == selectionPosition){
                 btnOrder.setBackgroundResource(R.drawable.bg_btn_add_bar)
                 btnOrder.setTextColor(Color.WHITE)
@@ -49,13 +56,6 @@ class RvClbBia(val list:List<dataStore>, private val listener: onOrderClickListe
                 notifyItemChanged(selectionPosition)
 
                 listener.onOrderClick(data.storeId.toString(),data.ownerId.toString(),data.name.toString(), data.address.toString())
-            }
-            imgLogoShop.setImageResource(R.drawable.icons8_ball_32)
-            txtNameShop.text = data.name
-            txtLocationBook.text = data.address
-            txtDescShop.text = data.des
-            root.setOnClickListener {
-                onClickItem?.invoke(data, position)
             }
         }
     }

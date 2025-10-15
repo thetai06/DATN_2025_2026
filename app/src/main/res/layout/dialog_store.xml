@@ -113,7 +113,7 @@
 
     <TextView
         android:id="@+id/tvOpeninHour"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Thời gian hoạt động"
         android:paddingVertical="5dp"
@@ -141,7 +141,7 @@
 
     <TextView
         android:id="@+id/tvClosingHour"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Thời gian đóng cửa"
         android:paddingVertical="5dp"
@@ -172,26 +172,61 @@
 
     <TextView
         android:id="@+id/tvNumberTable"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Số lượng bàn tại cơ sở"
         android:paddingVertical="5dp"
         android:textSize="@dimen/dimen_txt_20sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintWidth_percent="0.49"
         app:layout_constraintTop_toBottomOf="@+id/edtClosingHour"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
 
     <EditText
         android:id="@+id/edtNumberTable"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minWidth="250dp"
         android:textSize="@dimen/dimen_txt_20sp"
         android:hint="Nhập số bàn"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintWidth_percent="0.49"
         android:padding="10dp"
         android:background="@drawable/bg_send_code"
         app:layout_constraintTop_toBottomOf="@+id/tvNumberTable"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvPriceTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Giá tền (VND/bàn)"
+        android:paddingVertical="5dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:inputType="number"
+        app:layout_constraintWidth_percent="0.49"
+        android:textSize="@dimen/dimen_txt_20sp"
+        app:layout_constraintTop_toBottomOf="@+id/edtClosingHour"
+        app:layout_constraintLeft_toLeftOf="@+id/edtPriceTable"/>
+
+
+    <EditText
+        android:id="@+id/edtPriceTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minWidth="250dp"
+        android:textSize="@dimen/dimen_txt_20sp"
+        android:hint="Nhập số tiền/bàn"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintWidth_percent="0.49"
+        android:background="@drawable/bg_send_code"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceTable"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
@@ -201,7 +236,7 @@
         android:text="Ghi chú"
         android:paddingVertical="5dp"
         android:textSize="@dimen/dimen_txt_20sp"
-        app:layout_constraintTop_toBottomOf="@+id/edtNumberTable"
+        app:layout_constraintTop_toBottomOf="@+id/edtPriceTable"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
 

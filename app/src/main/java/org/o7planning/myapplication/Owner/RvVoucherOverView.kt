@@ -34,8 +34,7 @@ class RvVoucherOverView(
         holder.binding.apply {
             val data = list[position]
             titleVoucher.text = data.des
-            clbVoucher.text = data.voucherToClb
-            dateVoucher.text = data.voucherTime
+            dateVoucher.text = data.voucherTimeStart +" - "+ data.voucherTimeEnd
             voucherCode.text = data.voucherCode
             btnEditVoucher.setOnClickListener {
                 listenner.editVoucher(data)

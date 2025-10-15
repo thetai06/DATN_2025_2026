@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.privacysandbox.ads.adservices.topics.GetTopicsRequest
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -48,8 +47,8 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listStore = arrayListOf()
         dbRefManagementStore = FirebaseDatabase.getInstance().getReference("dataStore")
+        listStore = arrayListOf()
         dbRefOverview = FirebaseDatabase.getInstance().getReference("dataOverview")
         mAuth = FirebaseAuth.getInstance()
         ownerId = mAuth.currentUser?.uid
@@ -85,6 +84,7 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
             val edtOpeningHour = dialogView.findViewById<EditText>(R.id.edtOpeningHour)
             val edtClosingHour = dialogView.findViewById<EditText>(R.id.edtClosingHour)
             val edtNumberTable = dialogView.findViewById<EditText>(R.id.edtNumberTable)
+            val edtPriceTable = dialogView.findViewById<EditText>(R.id.edtPriceTable)
             val edtDes = dialogView.findViewById<EditText>(R.id.edtDes)
             val btnAddStore = dialogView.findViewById<Button>(R.id.btnConfirmAddStore)
 
@@ -96,6 +96,7 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
                 val openingHour = edtOpeningHour.text.toString().trim()
                 val closingHour = edtClosingHour.text.toString().trim()
                 val tableNumber = edtNumberTable.text.toString().trim()
+                val priceTable = edtPriceTable.text.toString().trim().toInt()
                 val des = edtDes.text.toString().trim()
                 if (location.isEmpty() && phoneNumber.isEmpty() && email.isEmpty() && openingHour.isEmpty() && closingHour.isEmpty() && tableNumber.isEmpty()) {
                     Toast.makeText(requireContext(), "Vui lòng điền đủ thông tin bắt buộc!", Toast.LENGTH_SHORT).show()
@@ -114,23 +115,18 @@ class FragmentManagementBar : Fragment(), setOnclickManagemenrBar {
                     tableNumber,
                     des,
                     openingHour,
-                    closingHour)
+                    closingHour,
+                    priceTable)
                 val dataOverview = dataOverviewOwner(
                     storeId,
                     ownerId,
-                    R.drawable.quan_bi_a1,
-                    name,
-                    location,
-                    sumTable = tableNumber.toInt(),
+                    totalBooking = 0,
                     confirm = 0,
+                    pendingBookings = 0,
                     profit = 0.0,
-                    processing = 0,
-                    statisticsStatus = 0,
                     tableActive = 0,
                     tableEmpty = 0,
                     maintenance = 0,
-                    openingHour,
-                    closingHour
                 )
 
                 dbRefManagementStore.child(storeId).setValue(dataStore)

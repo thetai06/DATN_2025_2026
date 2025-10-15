@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.o7planning.myapplication.R
-import org.o7planning.myapplication.data.dataOutstanding
 import org.o7planning.myapplication.data.dataStore
+import org.o7planning.myapplication.data.dataStoreDisplayInfo
 import org.o7planning.myapplication.databinding.ItemOutstandingBinding
 
 interface  onClickOrderOutStandingListenner {
-    fun onClickOderOutStanding(name: String, location: String)
+    fun onClickOderOutStanding(name: String, location: String, storeId: String, ownerId: String)
 }
 
-class RvOutstanding(val list: List<dataStore>, private val listenner: FragmentHome) : RecyclerView.Adapter<RvOutstanding.viewHolderItem>() {
+class RvOutstanding(val list: ArrayList<dataStoreDisplayInfo>, private val listenner: FragmentHome) : RecyclerView.Adapter<RvOutstanding.viewHolderItem>() {
 
-    var onClickItem:((dataStore, pos:Int)-> Unit)? = null
+    var onClickItem:((dataStoreDisplayInfo, pos:Int)-> Unit)? = null
 
     inner class viewHolderItem(val binding: ItemOutstandingBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -37,7 +37,7 @@ class RvOutstanding(val list: List<dataStore>, private val listenner: FragmentHo
                 onClickItem?.invoke(data, position)
             }
             btnOrder.setOnClickListener {
-                listenner.onClickOderOutStanding(data.name.toString(), data.address.toString())
+                listenner.onClickOderOutStanding(data.name.toString(), data.address.toString(),data.storeId.toString(), data.ownerId.toString())
             }
         }
     }

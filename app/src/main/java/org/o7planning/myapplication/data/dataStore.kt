@@ -11,5 +11,6 @@ class dataStore(
     val tableNumber: String? = null,
     val des: String? = null,
     val openingHour: String? = null,
-    val closingHour: String? = null
+    val closingHour: String? = null,
+    val priceTable: Int? = 0
 )

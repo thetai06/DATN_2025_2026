@@ -29,8 +29,7 @@ class RvVoucher(val list:List<dataVoucher>, private var listenner: onClickVouche
         holder.binding.apply {
             val data = list[position]
             titleVoucher.text = data.des
-            clbVoucher.text = "Cơ sở: ${data.voucherToClb}"
-            dateVoucher.text = "Thời gian: ${data.voucherTime}"
+            dateVoucher.text = "Thời gian: ${data.voucherTimeStart +"-"+ data.voucherTimeEnd}"
             voucherCode.text = data.voucherCode
             copyVoucherCode.setOnClickListener {
                 listenner.onClickVoucher(data.voucherCode.toString())

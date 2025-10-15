@@ -113,7 +113,12 @@
             <argument
                 android:name="location"
                 app:argType="string"/>
-
+            <argument
+                android:name="storeId"
+                app:argType="string"/>
+            <argument
+                android:name="ownerId"
+                app:argType="string"/>
         </action>
         <action
             android:id="@+id/action_fragment_home_to_fragment_sale"

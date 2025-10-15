@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,9 +27,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import org.o7planning.myapplication.R
-import org.o7planning.myapplication.data.dataOverviewOwner
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.data.dataStore
+import org.o7planning.myapplication.data.dataVoucher
 import org.o7planning.myapplication.databinding.FragmentBooktableBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -37,26 +38,34 @@ import java.util.Locale
 class FragmentBooktable : Fragment(), onOrderClickListener {
     private lateinit var dbRefBooktable: DatabaseReference
     private lateinit var dbRefStore: DatabaseReference
-    private lateinit var dbRefOverview: DatabaseReference
-    private lateinit var listStore: ArrayList<dataStore>
-    private lateinit var storeValueEventListener: ValueEventListener
-    private lateinit var listBooking: ArrayList<dataTableManagement>
-    private lateinit var storeAdapter: RvClbBia
-    private lateinit var mAuth: FirebaseAuth
     private lateinit var dbRefUser: DatabaseReference
+    private lateinit var dbRefOverview: DatabaseReference
+    private lateinit var dbRefVoucher: DatabaseReference
 
-    private var storeId:String? = null
+    private lateinit var storeValueEventListener: ValueEventListener
+
+    private lateinit var listStore: ArrayList<dataStore>
+    private lateinit var listBooking: ArrayList<dataTableManagement>
+    private lateinit var listVoucher: ArrayList<dataVoucher>
+
+    private lateinit var mAuth: FirebaseAuth
+
+    private lateinit var storeAdapter: RvClbBia
+
+    private var storeId: String? = null
     private var storeOwnerId: String? = null
     private var userId: String? = null
     private var userName: String? = null
     private var nameCLB: String? = null
+    private var priceTable: Int? = 0
     private var dataGame: String? = null
     private var dataDate: String? = null
     private var dataStartTime: String? = null
     private var dataEndTime: String? = null
     private var dataPeople: String? = null
     private var dataLocation: String? = null
-    private var dataVoucher: String? = null
+
+    private var appliedVoucherValue: String? = null// Lưu giá trị voucher ("10%" hoặc "20000")
 
     private var phoneNumberUser: String? = null
     private var emailUser: String? = null
@@ -78,18 +87,22 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         dbRefStore = FirebaseDatabase.getInstance().getReference("dataStore")
-        listStore = arrayListOf()
-
         dbRefBooktable = FirebaseDatabase.getInstance().getReference("dataBookTable")
-        listBooking = arrayListOf()
-
         dbRefOverview = FirebaseDatabase.getInstance().getReference("dataOverview")
+        dbRefVoucher = FirebaseDatabase.getInstance().getReference("dataVoucher")
+
+        listStore = arrayListOf()
+        listBooking = arrayListOf()
+        listVoucher = arrayListOf()
+
 
         mAuth = FirebaseAuth.getInstance()
         userId = mAuth.currentUser?.uid
         dbRefUser = FirebaseDatabase.getInstance().getReference("dataUser").child(userId!!)
-        binding.btnConfirmBooking.isEnabled = false
+
+        binding.btnConfirmBooking.isEnabled = true
 
         loadUserinformation()
 
@@ -98,18 +111,18 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         boxSelectPeopel()
         boxSelectTime()
         boxSelectOutstandingCLB()
-        boxVoucher()
+        setupVoucherInteraction()
 
         binding.btnConfirmBooking.setOnClickListener {
-            if (dataStartTime != null && dataEndTime != null && dataDate != null && dataPeople != null && dataLocation != null && validateExistingTimeSelection()) {
-                addDataOrder()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Vui lòng kiểm tra lại thông tin đặt bàn!",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (dataStartTime == null || dataEndTime == null || dataDate == null || dataPeople == null || dataLocation == null) {
+                Toast.makeText(requireContext(), "Vui lòng điền đủ thông tin đặt bàn!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (!validateExistingTimeSelection()) {
+                return@setOnClickListener
+            }
+            performFinalCheckAndBook()
         }
         updatePrice()
     }
@@ -159,21 +172,18 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             )
             dbRefBooktable.child(idBooking).setValue(dataOder)
                 .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Thanh cong", Toast.LENGTH_SHORT).show()
-                    dialogPaymentMethod()
-                    if (dataDate != null && dataLocation != null) {
-                        updateDailyStatistics(dataDate!!, dataLocation!!)
-                    }
+                    Toast.makeText(requireContext(), "Đặt bàn thành công!", Toast.LENGTH_SHORT).show()
+
                 }
                 .addOnFailureListener {
-                    Toast.makeText(requireContext(), "khong thanh cong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Đặt bàn thất bại, vui lòng thử lại!", Toast.LENGTH_SHORT).show()
                 }
         }
     }
 
     private fun dialogPaymentMethod() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogview = layoutInflater.inflate(R.layout.dialog_payment_method,null)
+        val dialogview = layoutInflater.inflate(R.layout.dialog_payment_method, null)
         builder.setView(dialogview)
         builder.setCancelable(false)
         val alertDialog: AlertDialog = builder.create()
@@ -184,116 +194,194 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         val btnCancel = dialogview.findViewById<Button>(R.id.btnCancel)
         val btnPay = dialogview.findViewById<Button>(R.id.btnPay)
 
+        rbWallet.setOnClickListener {
+            Toast.makeText(requireContext(), "Chuẩn bị thanh toán qua VNPay...", Toast.LENGTH_SHORT).show()
+        }
+
         price.text = totalPrice.toString()
 
         btnCancel.setOnClickListener {
             alertDialog.dismiss()
         }
         btnPay.setOnClickListener {
+            addDataOrder()
             alertDialog.dismiss()
-            Toast.makeText(requireContext(),"Thanh toán thành công!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.fragment_home)
         }
         alertDialog.show()
     }
 
-    private fun calculateTablePrice(
-        dataGame: String?,
-        dataDate: String?,
-        dataStartTime: String,
-        dataEndTime: String,
-        dataPeople: String?,
-        dataLocation: String?,
-        dataVoucher: String?
-    ): Double {
-        val basePricePerPerson = 60.0
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val startDate = dateFormat.parse(dataStartTime)
-        val endDate = dateFormat.parse(dataEndTime)
-        val dataGame = dataGame?.toLowerCase()
+    private fun calculateTablePrice(): Double {
+        try {
+            val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val startDate = dateFormat.parse(dataStartTime!!)
+            val endDate = dateFormat.parse(dataEndTime!!)
 
-        // Tính toán độ dài giữa hai thời điểm (tính bằng giờ)
-        val durationInMillis = endDate.time - startDate.time
-        val totalHours =
-            durationInMillis / (1000 * 60 * 60).toDouble() // Chuyển đổi từ mili giây sang giờ
+            val durationInMillis = endDate.time - startDate.time
+            val totalHours = durationInMillis / (1000 * 60 * 60).toDouble()
 
-        // Tính số người
-        val numPeople = dataPeople?.toIntOrNull() ?: 1
+            var calculatedPrice = (priceTable ?: 0) * totalHours
 
-        // Tính tổng tiền
-        var totalPrice = basePricePerPerson * numPeople * totalHours
+            if (dataGame?.lowercase(Locale.getDefault()) == "carom") {
+                calculatedPrice += 20000
+            }
 
-        if (dataLocation == "Hà Nam") {
-            totalPrice *= 0.5
+            if (!appliedVoucherValue.isNullOrEmpty()) {
+                val voucherValue = appliedVoucherValue!!
+
+                if (voucherValue.contains("%")) {
+                    val percentageString = voucherValue.replace("%", "").trim()
+                    val percentage = percentageString.toDoubleOrNull() ?: 0.0
+                    val discountAmount = calculatedPrice * (percentage / 100.0)
+                    calculatedPrice -= discountAmount
+                } else {
+                    val amount = voucherValue.toDoubleOrNull() ?: 0.0
+                    calculatedPrice -= amount
+                }
+            }
+
+            return if (calculatedPrice < 0) 0.0 else calculatedPrice
+
+        } catch (e: Exception) {
+            Log.e("CalculatePrice", "Lỗi tính toán giá: ${e.message}")
+            return 0.0
         }
-
-        if (dataGame == "cutthroat") {
-            totalPrice *= 0.2
-        }
-        if (!dataVoucher.isNullOrEmpty()) {
-            totalPrice *= 0.9
-        }
-
-        return totalPrice
     }
 
-
-    private fun boxVoucher() {
-        val voucher = arguments?.getString("voucher")
-        dataVoucher = voucher
-        binding.edtDiscountCode.setText(dataVoucher)
-        updatePrice()
+    private fun setupVoucherInteraction() {
+        val voucherFromArgs = arguments?.getString("voucher")
+        if (!voucherFromArgs.isNullOrEmpty()) {
+            binding.edtDiscountCode.setText(voucherFromArgs)
+        }
+        binding.btnDiscountCode.setOnClickListener {
+            val codeInput = binding.edtDiscountCode.text.toString().trim()
+            if (codeInput.isEmpty()) {
+                if (appliedVoucherValue != null) {
+                    appliedVoucherValue = null
+                    Toast.makeText(requireContext(), "Đã xóa voucher", Toast.LENGTH_SHORT).show()
+                    updatePrice()
+                }
+                return@setOnClickListener
+            }
+            validateVoucherCode(codeInput)
+        }
     }
 
+    private fun validateVoucherCode(code: String) {
+        dbRefVoucher.orderByChild("voucherCode").equalTo(code)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val voucherData = snapshot.children.first().getValue(dataVoucher::class.java)
+                        if (voucherData != null && isVoucherDateValid(voucherData)) {
+                            appliedVoucherValue = voucherData.voucherValue
+                            Toast.makeText(requireContext(), "Áp dụng voucher thành công!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            appliedVoucherValue = null
+                            Toast.makeText(requireContext(), "Mã voucher đã hết hạn!", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        appliedVoucherValue = null
+                        Toast.makeText(requireContext(), "Mã voucher không tồn tại!", Toast.LENGTH_SHORT).show()
+                    }
+                    updatePrice()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(), "Lỗi kết nối", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    private fun isVoucherDateValid(voucher: dataVoucher): Boolean {
+        if (voucher.voucherTimeStart.isNullOrEmpty() || voucher.voucherTimeEnd.isNullOrEmpty()) return true
+        return try {
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val today = Calendar.getInstance().time
+            val startDate = dateFormat.parse(voucher.voucherTimeStart!!)
+            val endDateCal = Calendar.getInstance().apply { time = dateFormat.parse(voucher.voucherTimeEnd!!)!! }
+            endDateCal.add(Calendar.DAY_OF_YEAR, 1)
+            !today.before(startDate) && today.before(endDateCal.time)
+        } catch (e: Exception) {
+            false
+        }
+    }
 
     private fun boxSelectTime() {
         binding.ibLogoSelectTimeStart.setOnClickListener {
+            if (dataDate == null){
+                Toast.makeText(requireContext(), "Vui lòng chọn ngày trước", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val calendar = Calendar.getInstance()
+            val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+            val currentMinute = calendar.get(Calendar.MINUTE)
+
             TimePickerDialog(
-                requireContext(),
-                TimePickerDialog.OnTimeSetListener { timePicker, hourOfDay, minute ->
+                requireContext(), { _, hourOfDay, minute ->
+                    val todayCalendar = Calendar.getInstance()
+                    val selectedDateCalendar = Calendar.getInstance()
+                    try {
+                        val sdf = SimpleDateFormat("d/M/yyyy", Locale.getDefault())
+                        selectedDateCalendar.time = sdf.parse(dataDate!!)!!
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Lỗi định dạng ngày", Toast.LENGTH_SHORT).show()
+                        return@TimePickerDialog
+                    }
+                    val isToday = todayCalendar.get(Calendar.YEAR) == selectedDateCalendar.get(Calendar.YEAR) &&
+                            todayCalendar.get(Calendar.DAY_OF_YEAR) == selectedDateCalendar.get(Calendar.DAY_OF_YEAR)
+                    if (isToday) {
+                        if (hourOfDay < currentHour || (hourOfDay == currentHour && minute < currentMinute)) {
+                            Toast.makeText(requireContext(), "Không thể chọn giờ trong quá khứ", Toast.LENGTH_SHORT).show()
+                            return@TimePickerDialog
+                        }
+                    }
                     val selectedStartTime = String.format("%02d:%02d", hourOfDay, minute)
                     dataStartTime = selectedStartTime
                     binding.textViewTimeStart.text = dataStartTime
-                    val newHour = (hourOfDay + 1) % 24
-                    val formattedEndTime = String.format("%02d:%02d", newHour, minute)
-                    dataEndTime = formattedEndTime
+
+                    val endCalendar = Calendar.getInstance()
+                    endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    endCalendar.set(Calendar.MINUTE, minute)
+                    endCalendar.add(Calendar.HOUR_OF_DAY, 1)
+                    val newHour = endCalendar.get(Calendar.HOUR_OF_DAY)
+                    val newMinute = endCalendar.get(Calendar.MINUTE)
+                    dataEndTime = String.format("%02d:%02d", newHour, newMinute)
+
                     binding.textViewTimeEnd.text = dataEndTime
                     binding.txtTime.text = "Thời gian: $dataStartTime - $dataEndTime"
                     updatePrice()
                 },
-                12,
-                0,
+                currentHour,
+                currentMinute,
                 true
             ).show()
         }
         binding.ibLogoSelectTimeEnd.setOnClickListener {
             TimePickerDialog(
                 requireContext(),
-                TimePickerDialog.OnTimeSetListener { timePicker, hourOfDay, minute ->
+                { _, hourOfDay, minute ->
                     val selectedEndTime = String.format("%02d:%02d", hourOfDay, minute)
-                    if (dataStartTime != null && dataDate != null) {
-                        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                        val startDate = dateFormat.parse(dataStartTime)
-                        val endDate = dateFormat.parse(selectedEndTime)
-                        val durationInMillis = endDate.time - startDate.time
-                        if (durationInMillis >= 3600000) {
-                            dataEndTime = selectedEndTime
-                            binding.textViewTimeEnd.text = dataEndTime
-                            binding.txtTime.text = "Thời gian: $dataStartTime - $dataEndTime"
-                            updatePrice()
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 giờ",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    if (dataStartTime != null) {
+                        try {
+                            val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                            val startDate = dateFormat.parse(dataStartTime!!)
+                            val endDate = dateFormat.parse(selectedEndTime)
+                            val durationInMillis = endDate.time - startDate.time
+                            if (durationInMillis >= 3600000) { // At least 1 hour
+                                dataEndTime = selectedEndTime
+                                binding.textViewTimeEnd.text = dataEndTime
+                                binding.txtTime.text = "Thời gian: $dataStartTime - $dataEndTime"
+                                updatePrice()
+                            } else {
+                                Toast.makeText(requireContext(), "Thời gian kết thúc phải lớn hơn thời gian bắt đầu ít nhất 1 giờ", Toast.LENGTH_SHORT).show()
+                            }
+                        } catch (e: Exception) {
+                            Log.e("TimePicker", "Error parsing time: ${e.message}")
                         }
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Vui lòng chọn thời gian bắt đầu và ngày",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Vui lòng chọn thời gian bắt đầu trước", Toast.LENGTH_SHORT).show()
                     }
                 },
                 1,
@@ -301,9 +389,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
                 true
             ).show()
         }
-
     }
-
 
     private fun boxSelectDate() {
         binding.ibLogoSelectDate.setOnClickListener {
@@ -313,8 +399,8 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
             val datePickerDialog = DatePickerDialog(
-                requireContext(),{ datePicker, year, month, dayOfMonth ->
-                    val selectDate = "$dayOfMonth / ${month + 1} / $year"
+                requireContext(), { _, year, month, dayOfMonth ->
+                    val selectDate = "$dayOfMonth/${month + 1}/$year"
                     binding.tvDate.text = selectDate
                     selectDate(selectDate)
                     updatePrice()
@@ -352,8 +438,8 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
                 listStore.clear()
                 if (snapshot.exists()) {
                     for (storeSnap in snapshot.children) {
-                        val stortData = storeSnap.getValue(dataStore::class.java)
-                        stortData?.let { listStore.add(it) }
+                        val storeData = storeSnap.getValue(dataStore::class.java)
+                        storeData?.let { listStore.add(it) }
                     }
                 }
                 storeAdapter.notifyDataSetChanged()
@@ -365,11 +451,11 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         dbRefStore.addValueEventListener(storeValueEventListener)
     }
 
-    private fun dialogViewStore(item: dataStore){
+    private fun dialogViewStore(item: dataStore) {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogView = layoutInflater.inflate(R.layout.dialog_view_store,null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_view_store, null)
         builder.setView(dialogView)
-        builder.setCancelable(false)
+        builder.setCancelable(true)
         val alertDialog: AlertDialog = builder.create()
         val nameBar = dialogView.findViewById<TextView>(R.id.nameBar)
         val locationBar = dialogView.findViewById<TextView>(R.id.locationBar)
@@ -379,51 +465,47 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         val tableBar = dialogView.findViewById<TextView>(R.id.tableBar)
         val desBar = dialogView.findViewById<TextView>(R.id.desBar)
         val btnExit = dialogView.findViewById<ImageButton>(R.id.btnExit)
+        nameBar.text = item.name
+        locationBar.text = item.address
+        phoneBar.text = "Số điện thoại: ${item.phone}"
+        emailBar.text = "Email: ${item.email}"
+        timeBar.text = "Thời gian hoạt động: ${item.openingHour} - ${item.closingHour}"
+        // ⭐ SỬA LẠI: HIỂN THỊ TỔNG SỐ BÀN CỦA QUÁN
+        tableBar.text = "Tổng số bàn: ${item.tableNumber}"
+        desBar.text = item.des
+
         btnExit.setOnClickListener {
             alertDialog.dismiss()
         }
-        dbRefOverview.child(item.storeId.toString()).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    val overviewData = snapshot.getValue(dataOverviewOwner::class.java)
-                    nameBar.text = overviewData?.name.toString()
-                    locationBar.text = overviewData?.location.toString()
-                    phoneBar.text = "Số điệt thoại: ${item.phone}"
-                    emailBar.text = "Email: ${item.email}"
-                    timeBar.text = "Thời gian hoạt động: ${overviewData?.openingHour.toString()} - ${overviewData?.closingHour.toString()}"
-                    tableBar.text = "Số lượng bàn: ${overviewData?.sumTable.toString()}"
-                    desBar.text = item.des
 
-                    alertDialog.show()
-                } else {
-                    Toast.makeText(requireContext(), "Không tìm thấy dữ liệu chi tiết cho cửa hàng này.", Toast.LENGTH_LONG).show()
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+        alertDialog.show()
     }
 
-    override fun onOrderClick(id: String, ownerId: String, name: String, location: String) {
+    override fun onOrderClick(id: String, ownerId: String, name: String, address: String) {
         storeId = id
         storeOwnerId = ownerId
         nameCLB = name
-        binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $location"
-        dataLocation = location
-        loadTableCountForSelectedStore(location)
+        binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $address"
+        dataLocation = address
+        loadTableCountForSelectedStore(id)
+        val selectedStore = listStore.find { it.storeId == id }
+        priceTable = selectedStore?.priceTable
+
         updatePrice()
     }
 
-    private fun loadTableCountForSelectedStore(location: String) {
-        dbRefStore.orderByChild("address").equalTo(location)
+    private fun loadTableCountForSelectedStore(id: String) {
+        dbRefStore.child(id)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        val storeData =
-                            snapshot.children.firstOrNull()?.getValue(dataStore::class.java)
+                        val storeData = snapshot.getValue(dataStore::class.java)
                         totalTables = storeData?.tableNumber
                         openingHour = storeData?.openingHour
                         closingHour = storeData?.closingHour
+                        if (priceTable == 0 || priceTable == null) {
+                            priceTable = storeData?.priceTable
+                        }
                         updatePrice()
                     } else {
                         totalTables = "0"
@@ -432,22 +514,21 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
                 }
                 override fun onCancelled(error: DatabaseError) {
                 }
-
             })
     }
 
-    private fun isTimeWithInOperatingHour(selectedTime: String): Boolean{
-        if (openingHour == null || closingHour == null){
+    private fun isTimeWithInOperatingHour(selectedTime: String): Boolean {
+        if (openingHour.isNullOrEmpty() || closingHour.isNullOrEmpty()) {
             return true
         }
         return try {
-            val timeFormat = android.icu.text.SimpleDateFormat("HH:mm", Locale.getDefault())
+            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
             val selectedDate = timeFormat.parse(selectedTime)
-            val openingDate = timeFormat.parse(openingHour)
-            val closingDate = timeFormat.parse(closingHour)
+            val openingDate = timeFormat.parse(openingHour!!)
+            val closingDate = timeFormat.parse(closingHour!!)
 
             !selectedDate.before(openingDate) && !selectedDate.after(closingDate)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             true
         }
     }
@@ -458,20 +539,12 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         }
 
         if (dataStartTime != null && !isTimeWithInOperatingHour(dataStartTime!!)) {
-            Toast.makeText(
-                requireContext(),
-                "Giờ bắt đầu ($dataStartTime) nằm ngoài giờ hoạt động ($openingHour - $closingHour)",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), "Giờ bắt đầu ($dataStartTime) nằm ngoài giờ hoạt động ($openingHour - $closingHour)", Toast.LENGTH_LONG).show()
             return false
         }
 
         if (dataEndTime != null && !isTimeWithInOperatingHour(dataEndTime!!)) {
-            Toast.makeText(
-                requireContext(),
-                "Giờ kết thúc ($dataEndTime) nằm ngoài giờ hoạt động ($openingHour - $closingHour)",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), "Giờ kết thúc ($dataEndTime) nằm ngoài giờ hoạt động ($openingHour - $closingHour)", Toast.LENGTH_LONG).show()
             return false
         }
         return true
@@ -480,15 +553,24 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
     private fun boxSelectOutstandingCLB() {
         val name = arguments?.getString("name")
         val location = arguments?.getString("location")
-        storeOwnerId = arguments?.getString("id")
-        binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $location"
-        dataLocation = location
-        nameCLB = name
+        val storeIdFromArgs = arguments?.getString("storeId")
+        val ownerIdFromArgs = arguments?.getString("ownerId")
 
-        if (name != null) {
+        if (name != null && location != null && storeIdFromArgs != null && ownerIdFromArgs != null) {
+            storeId = storeIdFromArgs
+            storeOwnerId = ownerIdFromArgs
+            nameCLB = name
+            dataLocation = location
+
+            binding.txtSelectClb.text = "Quán: $name \n Cơ sở: $location"
             binding.boxClbBia.visibility = View.GONE
+
+            loadTableCountForSelectedStore(storeIdFromArgs)
+
+        } else {
+            binding.boxClbBia.visibility = View.VISIBLE
+            boxSelectCLB()
         }
-        boxSelectCLB()
         updatePrice()
     }
 
@@ -498,7 +580,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, tables)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTime.adapter = adapter
-        spinnerTime.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+        spinnerTime.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 p0: AdapterView<*>,
                 p1: View?,
@@ -514,7 +596,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
 
-        })
+        }
     }
 
 
@@ -525,6 +607,7 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         list.add(OutDataBookTable("Straight Pool"))
         list.add(OutDataBookTable("Carom"))
         list.add(OutDataBookTable("Cutthroat"))
+
         binding.rvOrderGame.adapter = RvBooktable(list).apply {
             onItemClick = { item, pos ->
                 setGameType(item.name)
@@ -539,175 +622,75 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
     }
 
     private fun updatePrice() {
-        if (dataStartTime != null && dataEndTime != null && dataDate != null
-            && dataPeople != null && dataLocation != null
-        ) {
-
-            totalPrice = calculateTablePrice(
-                dataGame,
-                dataDate,
-                dataStartTime!!,
-                dataEndTime!!,
-                dataPeople,
-                dataLocation,
-                dataVoucher
-            )
+        if (dataStartTime != null && dataEndTime != null && dataDate != null && dataPeople != null && dataLocation != null) {
+            totalPrice = calculateTablePrice()
             binding.PrepareTheBill.text = "Tổng tiền: ${String.format("%.0f VND", totalPrice)}"
-            checkAndCountBookings()
-            binding.btnConfirmBooking.isEnabled = true
         } else {
             binding.PrepareTheBill.text = "Vui lòng điền đủ thông tin để tính giá"
-            binding.btnConfirmBooking.isEnabled = false
         }
     }
 
     private fun setGameType(typeGame: String) {
         dataGame = typeGame
         binding.txtGameType.text = "Loại Game: $dataGame"
+        updatePrice()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        dbRefStore.removeEventListener(storeValueEventListener)
-    }
-
-    private fun checkAndCountBookings() {
+    private fun performFinalCheckAndBook() {
         val busyStatuses = listOf("Chờ xử lý", "Đã xác nhận", "Đang chơi")
-        val busyBookings = mutableListOf<String>()
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
         dbRefBooktable.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val startTime = timeFormat.parse(dataStartTime ?: return)
-                val endTime = timeFormat.parse(dataEndTime ?: return)
+                try {
+                    val startTime = timeFormat.parse(dataStartTime!!)
+                    val endTime = timeFormat.parse(dataEndTime!!)
+                    var busyBookingsCount = 0
 
-                listBooking.clear()
-                if (snapshot.exists()) {
-                    for (bookingSnap in snapshot.children) {
-                        val bookingData = bookingSnap.getValue(dataTableManagement::class.java)
-                        if (bookingData != null && bookingData.id != null && bookingData.status in busyStatuses) {
-                            if (bookingData.dateTime == dataDate && bookingData.addressClb == dataLocation) {
-                                try {
-                                    val orderStart = timeFormat.parse(bookingData.startTime)
-                                    val orderEnd = timeFormat.parse(bookingData.endTime)
+                    if (snapshot.exists()) {
+                        for (bookingSnap in snapshot.children) {
+                            val bookingData = bookingSnap.getValue(dataTableManagement::class.java)
+                            if (bookingData != null &&
+                                bookingData.status in busyStatuses &&
+                                bookingData.dateTime == dataDate &&
+                                bookingData.addressClb == dataLocation) {
 
-                                    val isOverLapping =
-                                        (orderStart.before(endTime) && startTime.before(orderEnd))
-                                    if (isOverLapping) {
-                                        busyBookings.add(bookingData.id!!)
-                                    }
-                                } catch (e: Exception) {
-                                    Log.e(
-                                        "BookingCheck",
-                                        "Lỗi phân tích cú pháp thời gian: ${e.message}"
-                                    )
-                                    continue
+                                val orderStart = timeFormat.parse(bookingData.startTime)
+                                val orderEnd = timeFormat.parse(bookingData.endTime)
+                                if (orderStart.before(endTime) && startTime.before(orderEnd)) {
+                                    busyBookingsCount++
                                 }
-                                listBooking.add(bookingData)
                             }
                         }
                     }
-                }
-                val reservedCount = busyBookings.size
-                val availableCount = totalTables?.toDouble()?.minus(reservedCount.toDouble())
 
-                val numPeople = dataPeople?.toIntOrNull() ?: 1
-                if (availableCount != null) {
-                    binding.btnConfirmBooking.isEnabled = (availableCount >= numPeople)
+                    val totalTableCount = totalTables?.toIntOrNull() ?: 0
+                    val availableCount = totalTableCount - busyBookingsCount
+                    val tablesToBook = 1
+
+                    if (availableCount >= tablesToBook) {
+                        dialogPaymentMethod()
+                    } else {
+                        Toast.makeText(requireContext(), "Đã hết bàn vào khung giờ này. Vui lòng chọn giờ khác!", Toast.LENGTH_LONG).show()
+                    }
+
+                } catch (e: Exception) {
+                    Log.e("BookingCheck", "Lỗi parse thời gian hoặc dữ liệu null: ${e.message}")
+                    Toast.makeText(requireContext(), "Có lỗi xảy ra, vui lòng thử lại.", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Lỗi tải dữ liệu: ${error.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-        })
-    }
-
-    private fun updateDailyStatistics(date: String, location: String) {
-        dbRefBooktable.orderByChild("addressClb").equalTo(location)
-            .addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (!snapshot.exists()) {
-                    Log.d("DailyStats", "Không có đơn đặt bàn nào cho địa điểm: $location")
-                    return
-                }
-
-                var confirmedCount = 0      // Đơn đã xác nhận
-                var processingCount = 0     // Đơn chờ xử lý
-                var activeTableCount = 0    // Bàn đang hoạt động (xác nhận + đang chơi)
-                var totalRevenue = 0.0      // Tổng doanh thu
-                var totalBookings = 0       // Tổng số đơn (trừ đơn bị từ chối)
-
-                for (bookingSnap in snapshot.children) {
-                    val booking = bookingSnap.getValue(dataTableManagement::class.java)
-                    if (booking != null && booking.dateTime == date) {
-                        if (booking.status != "Đã từ chối") {
-                            totalBookings++
-                        }
-                        when (booking.status) {
-                            "Chờ xử lý" -> {
-                                processingCount++
-                            }
-                            "Đã xác nhận" -> {
-                                confirmedCount++
-                                activeTableCount++
-                            }
-                            "Đang chơi" -> {
-                                activeTableCount++
-                            }
-                            "Đã hoàn thành" -> {
-                                val moneyString = booking.money?.replace(Regex("[^\\d.]"), "")
-                                totalRevenue += moneyString?.toDoubleOrNull() ?: 0.0
-                            }
-                        }
-                    }
-                }
-
-                val totalAvailableTables = totalTables?.toIntOrNull() ?: 0
-                val tableEmpty = totalAvailableTables - activeTableCount
-                val statisticsStatus = activeTableCount + tableEmpty
-                val maintenance = 0
-
-                val finalOverviewDataMap = mapOf<String, Any>(
-                    "name" to (nameCLB ?: ""),
-                    "storeId" to (storeId ?: ""),
-                    "ownerId" to (storeOwnerId ?: ""),
-                    "location" to (dataLocation ?: ""),
-                    "confirm" to confirmedCount,
-                    "statisticsStatus" to statisticsStatus,
-                    "tableActive" to activeTableCount,
-                    "tableEmpty" to tableEmpty,
-                    "maintenance" to maintenance,
-
-                    "sumTable" to totalBookings,
-                    "profit" to totalRevenue,
-                    "processing" to processingCount
-                )
-
-                if (storeId != null) {
-                    dbRefOverview.child(storeId.toString()).updateChildren(finalOverviewDataMap)
-                        .addOnSuccessListener {
-                            Log.i("DailyStats", "Đã cập nhật TOÀN BỘ thống kê cho ngày $date tại $location thành công!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e("DailyStats", "Lỗi cập nhật thống kê tổng hợp: ${e.message}")
-                        }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("DailyStats", "Lỗi tải dữ liệu đặt bàn: ${error.message}")
+                Toast.makeText(requireContext(), "Lỗi kiểm tra dữ liệu: ${error.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (this::storeValueEventListener.isInitialized) {
+            dbRefStore.removeEventListener(storeValueEventListener)
+        }
+    }
 }
-
-

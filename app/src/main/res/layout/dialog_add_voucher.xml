@@ -42,49 +42,46 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
-        android:id="@+id/tvVoucherToClb"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvVoucherTimeStart"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/dimen_txt_20sp"
         android:paddingVertical="5dp"
-        android:text="Áp dụng cho cơ sở"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Thời gian áp dụng"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtDes"/>
 
-    <EditText
-        android:id="@+id/edtVoucherToClb"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/edtVoucherTimeStart"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minWidth="250dp"
         android:textSize="@dimen/dimen_txt_20sp"
-        android:hint="Áp dụng cho cơ sở..."
+        android:hint="Ngày bắt đầu"
         android:padding="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintWidth_percent="0.49"
         android:background="@drawable/bg_send_code"
-        app:layout_constraintTop_toBottomOf="@+id/tvVoucherToClb"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvVoucherTimeStart"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-        android:id="@+id/tvVoucherTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/dimen_txt_20sp"
-        android:paddingVertical="5dp"
-        android:text="Thời gian áp dụng"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtVoucherToClb"/>
-
-    <EditText
-        android:id="@+id/edtVoucherTime"
-        android:layout_width="match_parent"
+        android:id="@+id/edtVoucherTimeEnd"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minWidth="250dp"
         android:textSize="@dimen/dimen_txt_20sp"
-        android:hint="Thời gian áp dụng mã"
+        android:hint="Ngày kết thúc"
         android:padding="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintWidth_percent="0.49"
         android:background="@drawable/bg_send_code"
-        app:layout_constraintTop_toBottomOf="@+id/tvVoucherTime"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVoucherTimeStart"
+        app:layout_constraintLeft_toRightOf="@+id/edtVoucherTimeStart"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
@@ -95,7 +92,7 @@
         android:paddingVertical="5dp"
         android:text="Mã giảm giá"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtVoucherTime"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherTimeEnd"/>
 
     <EditText
         android:id="@+id/edtVoucherCode"
@@ -119,7 +116,7 @@
         android:paddingVertical="5dp"
         android:text="Phần trăm(%)"
         app:layout_constraintLeft_toLeftOf="@+id/edtVoucherValue"
-        app:layout_constraintTop_toBottomOf="@+id/edtVoucherTime"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtVoucherTimeEnd"/>
 
     <EditText
         android:id="@+id/edtVoucherValue"
