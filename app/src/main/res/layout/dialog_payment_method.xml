@@ -85,13 +85,13 @@
                 android:textStyle="bold" />
 
             <RadioGroup
-                android:id="@+id/payment_method_group"
+                android:id="@+id/paymentMethodGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
                 <RadioButton
-                    android:id="@+id/rbWallet"
+                    android:id="@+id/optionVnPay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -102,7 +102,7 @@
                     android:textColor="@android:color/black"/>
 
                 <RadioButton
-                    android:id="@+id/rbCash"
+                    android:id="@+id/optionCash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

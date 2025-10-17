@@ -42,6 +42,12 @@ android {
 }
 
 dependencies {
+    //vẽ QR
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation("com.google.android.gms:play-services-auth:latest_version")
     implementation("com.google.firebase:firebase-database:latest_version")
 

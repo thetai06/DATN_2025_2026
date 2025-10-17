@@ -13,6 +13,8 @@ class dataTableManagement(
     val dateTime:String="",
     val person: String="",
     val money: String="",
+    val createdAt: Long? = null,
+    val paymentStatus: String = "",
     val status: String="",
     val addressClb: String="",
     val btnStatus: String="")

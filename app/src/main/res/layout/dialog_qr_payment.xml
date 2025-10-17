@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quét mã để thanh toán"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvQrAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="160,000 VND"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/emerald_700"
+        android:layout_marginTop="8dp"/>
+
+    <ImageView
+        android:id="@+id/ivQrCode"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="16dp"
+        android:background="#f0f0f0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sử dụng App ngân hàng hoặc ví điện tử\nđể quét mã VietQR ở trên"
+        android:gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvPaymentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đang chờ thanh toán..."
+        android:layout_marginTop="8dp"
+        android:textStyle="italic"/>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đóng"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>

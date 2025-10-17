@@ -35,6 +35,23 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+import android.content.Intent
+import android.net.Uri
+import android.widget.RadioGroup
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
+
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import android.graphics.Bitmap
+import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
+
 class FragmentBooktable : Fragment(), onOrderClickListener {
     private lateinit var dbRefBooktable: DatabaseReference
     private lateinit var dbRefStore: DatabaseReference
@@ -141,75 +158,204 @@ class FragmentBooktable : Fragment(), onOrderClickListener {
         })
     }
 
-    private fun addDataOrder() {
-        binding.apply {
-            val name = userName.toString()
-            val phoneNumber = phoneNumberUser.toString()
-            val email = emailUser.toString()
-            val startTime = dataStartTime.toString()
-            val endTime = dataEndTime.toString()
-            val dateTime = dataDate.toString()
-            val person = dataPeople.toString()
-            val address = dataLocation.toString()
-            val money = PrepareTheBill.text.toString()
-            val status = "Chờ xử lý"
-            val idBooking = dbRefBooktable.push().key.toString()
-            val dataOder = dataTableManagement(
-                idBooking,
-                userId,
-                storeOwnerId,
-                storeId,
-                phoneNumber,
-                email,
-                name,
-                startTime,
-                endTime,
-                dateTime,
-                person,
-                money,
-                status,
-                address
-            )
-            dbRefBooktable.child(idBooking).setValue(dataOder)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Đặt bàn thành công!", Toast.LENGTH_SHORT).show()
-
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Đặt bàn thất bại, vui lòng thử lại!", Toast.LENGTH_SHORT).show()
-                }
-        }
+    private fun addDataOrder(orderId: String, paymentStatus: String, status: String) {
+        val dataOder = dataTableManagement(
+            orderId,
+            userId,
+            storeOwnerId,
+            storeId,
+            phoneNumberUser,
+            emailUser,
+            userName.toString(),
+            dataStartTime.toString(),
+            dataEndTime.toString(),
+            dataDate.toString(),
+            dataPeople.toString(),
+            binding.PrepareTheBill.text.toString(),
+            createdAt = System.currentTimeMillis(),
+            paymentStatus,
+            status = status,
+            dataLocation.toString()
+        )
+        dbRefBooktable.child(orderId).setValue(dataOder)
+            .addOnSuccessListener {
+                Log.d("Booking", "Lưu đơn hàng ${orderId} thành công với trạng thái: ${paymentStatus}")
+            }
+            .addOnFailureListener {
+                Log.e("Booking", "Lỗi lưu đơn hàng ${orderId}")
+            }
     }
 
     private fun dialogPaymentMethod() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogview = layoutInflater.inflate(R.layout.dialog_payment_method, null)
-        builder.setView(dialogview)
-        builder.setCancelable(false)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_payment_method, null)
+        builder.setView(dialogView)
         val alertDialog: AlertDialog = builder.create()
 
-        val price = dialogview.findViewById<TextView>(R.id.tvPrice)
-        val rbWallet = dialogview.findViewById<RadioButton>(R.id.rbWallet)
-        val rbCash = dialogview.findViewById<RadioButton>(R.id.rbCash)
-        val btnCancel = dialogview.findViewById<Button>(R.id.btnCancel)
-        val btnPay = dialogview.findViewById<Button>(R.id.btnPay)
+        // --- Ánh xạ các view từ layout mới ---
+        val priceTextView = dialogView.findViewById<TextView>(R.id.tvPrice)
+        val radioGroup = dialogView.findViewById<RadioGroup>(R.id.paymentMethodGroup)
+        val rbVnPay = dialogView.findViewById<RadioButton>(R.id.optionVnPay)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnPay = dialogView.findViewById<Button>(R.id.btnPay)
 
-        rbWallet.setOnClickListener {
-            Toast.makeText(requireContext(), "Chuẩn bị thanh toán qua VNPay...", Toast.LENGTH_SHORT).show()
-        }
-
-        price.text = totalPrice.toString()
+        priceTextView.text = String.format("%.0f VND", totalPrice)
 
         btnCancel.setOnClickListener {
             alertDialog.dismiss()
         }
+
         btnPay.setOnClickListener {
-            addDataOrder()
-            alertDialog.dismiss()
-            Toast.makeText(requireContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.fragment_home)
+            val selectedId = radioGroup.checkedRadioButtonId
+
+            if (selectedId == -1) {
+                Toast.makeText(requireContext(), "Vui lòng chọn một phương thức thanh toán", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            btnPay.isEnabled = false
+            btnCancel.isEnabled = false
+
+            when (selectedId) {
+                rbVnPay.id -> {
+                    executeVnPayPayment(alertDialog)
+                }
+                else -> {
+                    executeCashPayment(alertDialog)
+                }
+            }
         }
+
         alertDialog.show()
+    }
+
+    private fun executeVnPayPayment(dialog: AlertDialog) {
+        val orderId = "BIDA" + System.currentTimeMillis()
+        addDataOrder(orderId, "Chờ thanh toán VNPay", "Đã xác nhận")
+
+        dialog.findViewById<Button>(R.id.btnPay)?.isEnabled = false
+        dialog.findViewById<Button>(R.id.btnCancel)?.isEnabled = false
+        Toast.makeText(requireContext(), "Đang tạo mã QR, vui lòng chờ...", Toast.LENGTH_SHORT).show()
+
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api-datn-2025.onrender.com")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(ApiService::class.java)
+        val request = PaymentRequest(amount = totalPrice ?: 0.0, orderId = orderId)
+
+        Log.d("VNPay_API", "Đang gửi yêu cầu tạo link thanh toán cho đơn hàng: $orderId")
+
+        apiService.createPaymentUrl(request).enqueue(object : Callback<PaymentResponse> {
+            override fun onResponse(call: Call<PaymentResponse>, response: Response<PaymentResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val paymentUrl = response.body()!!.paymentUrl
+
+                    Log.d("VNPay_API", "NHẬN ĐƯỢC URL THANH TOÁN THÀNH CÔNG:")
+                    Log.d("VNPay_API", paymentUrl)
+
+                    showQrCodeDialog(paymentUrl, orderId)
+                    dialog.dismiss()
+                } else {
+                    Log.e("VNPay_API", "LỖI PHẢN HỒI: Mã lỗi ${response.code()} - ${response.errorBody()?.string()}")
+                    Toast.makeText(requireContext(), "Server báo lỗi. Vui lòng thử lại.", Toast.LENGTH_SHORT).show()
+                    dialog.findViewById<Button>(R.id.btnPay)?.isEnabled = true
+                    dialog.findViewById<Button>(R.id.btnCancel)?.isEnabled = true
+                }
+            }
+
+            override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
+                Log.e("VNPay_API", "LỖI KẾT NỐI: ${t.message}")
+                Toast.makeText(requireContext(), "Lỗi kết nối. Vui lòng kiểm tra Internet.", Toast.LENGTH_SHORT).show()
+                dialog.findViewById<Button>(R.id.btnPay)?.isEnabled = true
+                dialog.findViewById<Button>(R.id.btnCancel)?.isEnabled = true
+            }
+        })
+    }
+
+    private fun executeCashPayment(dialog: AlertDialog) {
+        val orderId = dbRefBooktable.push().key.toString()
+        addDataOrder(orderId,"Thanh toán tại quầy", "Chờ xử lý")
+
+        Toast.makeText(requireContext(), "Đặt bàn thành công! Vui lòng thanh toán tại quầy.", Toast.LENGTH_LONG).show()
+        dialog.dismiss()
+        findNavController().navigate(R.id.fragment_home)
+    }
+
+    private fun showQrCodeDialog(paymentUrl: String, orderId: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.dialog_qr_payment, null)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        val qrDialog: AlertDialog = builder.create()
+
+        val ivQrCode = dialogView.findViewById<ImageView>(R.id.ivQrCode)
+        val tvAmount = dialogView.findViewById<TextView>(R.id.tvQrAmount)
+        val btnClose = dialogView.findViewById<Button>(R.id.btnClose)
+        val tvStatus = dialogView.findViewById<TextView>(R.id.tvPaymentStatus)
+
+        tvAmount.text = String.format("%.0f VND", totalPrice)
+
+        // Dùng thư viện ZXing để tạo Bitmap từ URL
+        try {
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap: Bitmap = barcodeEncoder.encodeBitmap(paymentUrl, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400)
+            ivQrCode.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "Lỗi tạo mã QR", Toast.LENGTH_SHORT).show()
+        }
+
+        // --- Tự động lắng nghe trạng thái thanh toán ---
+        val paymentStatusListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Lắng nghe đúng trường "paymentStatus" mà backend cập nhật
+                val paymentStatus = snapshot.child("paymentStatus").getValue(String::class.java)
+
+                // Sử dụng các giá trị "SUCCESS" và "FAILED" đồng bộ với backend
+                if (paymentStatus == "SUCCESS") {
+                    tvStatus.text = "Thanh toán thành công!"
+                    tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                    btnClose.text = "Hoàn tất"
+
+                    // Xóa listener đi sau khi đã có kết quả để tránh xử lý thừa
+                    dbRefBooktable.child(orderId).removeEventListener(this)
+
+                    // Tự động đóng dialog và chuyển về trang chủ sau 3 giây
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                        qrDialog.dismiss()
+                        findNavController().navigate(R.id.fragment_home)
+                    }, 3000)
+                } else if (paymentStatus == "FAILED") {
+                    tvStatus.text = "Thanh toán thất bại!"
+                    tvStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                    btnClose.text = "Thử lại"
+                    // Xóa listener đi sau khi đã có kết quả
+                    dbRefBooktable.child(orderId).removeEventListener(this)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("PaymentListener", "Lỗi lắng nghe trạng thái: ${error.message}")
+            }
+        }
+        // Gắn listener vào đúng đơn hàng đang thanh toán
+        dbRefBooktable.child(orderId).addValueEventListener(paymentStatusListener)
+
+        btnClose.setOnClickListener {
+            // Gỡ listener khi đóng dialog để tránh rò rỉ bộ nhớ
+            dbRefBooktable.child(orderId).removeEventListener(paymentStatusListener)
+            qrDialog.dismiss()
+        }
+
+        qrDialog.show()
     }
 
     private fun calculateTablePrice(): Double {
