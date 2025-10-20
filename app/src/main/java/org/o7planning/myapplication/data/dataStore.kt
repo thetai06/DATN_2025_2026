@@ -12,5 +12,8 @@ class dataStore(
     val des: String? = null,
     val openingHour: String? = null,
     val closingHour: String? = null,
-    val priceTable: Int? = 0
+    val priceTable: Int? = 0,
+    val latitude: Double? = 0.0,
+    val longitude: Double? = 0.0,
+    var distance: Double? = null
 )

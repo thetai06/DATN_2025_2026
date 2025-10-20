@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.o7planning.myapplication.Admin.Data
 import org.o7planning.myapplication.data.dataTableManagement
 import org.o7planning.myapplication.databinding.ItemTableManagementBinding
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_splash"
-        android:name="org.o7planning.myapplication.Admin.FragmentSplash"
+        android:name="org.o7planning.myapplication.admin.FragmentSplash"
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_fragment_splash_to_fragment_login"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/fragment_login"
-        android:name="org.o7planning.myapplication.Admin.FragmentLogin"
+        android:name="org.o7planning.myapplication.admin.FragmentLogin"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/fragment_login_to_fragment_signup"
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/fragment_signup"
-        android:name="org.o7planning.myapplication.Admin.FragmentRegister"
+        android:name="org.o7planning.myapplication.admin.FragmentRegister"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/fragment_signup_to_fragment_login"
@@ -59,7 +59,7 @@
     </fragment>
 
     <fragment android:id="@+id/fragment_access_location"
-        android:name="org.o7planning.myapplication.Customer.FragmentAccessLocation"
+        android:name="org.o7planning.myapplication.customer.FragmentAccessLocation"
         tools:layout="@layout/fragment_access_location">
         <action
             android:id="@+id/fragment_access_location_to_fragment_home"
@@ -69,7 +69,7 @@
 
     <fragment
         android:id="@+id/fragment_booktable"
-        android:name="org.o7planning.myapplication.Customer.FragmentBooktable"
+        android:name="org.o7planning.myapplication.customer.FragmentBooktable"
         tools:layout="@layout/fragment_booktable">
         <action
             android:id="@+id/fragment_booktable_to_fragment_home"
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_sale"
-        android:name="org.o7planning.myapplication.Customer.FragmentSale"
+        android:name="org.o7planning.myapplication.customer.FragmentSale"
         tools:layout="@layout/fragment_sale">
         <action
             android:id="@+id/fragment_sale_to_fragment_home"
@@ -102,7 +102,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
-        android:name="org.o7planning.myapplication.Customer.FragmentHome"
+        android:name="org.o7planning.myapplication.customer.FragmentHome"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_booktable"
@@ -131,7 +131,7 @@
 
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="org.o7planning.myapplication.Customer.FragmentProfile"
+        android:name="org.o7planning.myapplication.customer.FragmentProfile"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/fragment_profile_to_fragment_home"
@@ -164,7 +164,7 @@
 
     <fragment
         android:id="@+id/fragment_history"
-        android:name="org.o7planning.myapplication.Customer.FragmentHistory"
+        android:name="org.o7planning.myapplication.customer.FragmentHistory"
         tools:layout="@layout/fragment_history">
         <action
             android:id="@+id/fragment_history_to_fragment_profile"
@@ -173,7 +173,7 @@
 
     <fragment
         android:id="@+id/fragment_send_code"
-        android:name="org.o7planning.myapplication.Admin.FragmentSendCode"
+        android:name="org.o7planning.myapplication.admin.FragmentSendCode"
         tools:layout="@layout/fragment_send_code">
         <action
             android:id="@+id/fragmnet_send_code_to_fragment_login"
@@ -182,7 +182,7 @@
 
     <fragment
         android:id="@+id/fragment_notification"
-        android:name="org.o7planning.myapplication.Customer.FragmentNotification"
+        android:name="org.o7planning.myapplication.customer.FragmentNotification"
         tools:layout="@layout/fragment_notification">
         <action
             android:id="@+id/fragment_notification_to_fragment_profile"
@@ -191,7 +191,7 @@
 
     <fragment
         android:id="@+id/fragment_payment_method"
-        android:name="org.o7planning.myapplication.Customer.FragmentPaymentMethod"
+        android:name="org.o7planning.myapplication.customer.FragmentPaymentMethod"
         tools:layout="@layout/fragment_payment_method">
         <action
             android:id="@+id/fragment_payment_method_to_fragment_profile"
@@ -200,7 +200,7 @@
 
     <fragment
         android:id="@+id/fragment_personal_information"
-        android:name="org.o7planning.myapplication.Customer.FragmentPersonalInformation"
+        android:name="org.o7planning.myapplication.customer.FragmentPersonalInformation"
         tools:layout="@layout/fragment_personal_information">
         <action
             android:id="@+id/fragment_personal_information_to_fragment_profile"
@@ -210,7 +210,7 @@
 <!--    các fragment Chủ cửa hàng-->
     <fragment
         android:id="@+id/fragment_overview"
-        android:name="org.o7planning.myapplication.Owner.FragmentOverview"
+        android:name="org.o7planning.myapplication.owner.FragmentOverview"
         tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/fragment_overview_to_fragment_ManagementBar"
@@ -229,7 +229,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_makeorder"
-        android:name="org.o7planning.myapplication.Owner.FragmentMakeorder"
+        android:name="org.o7planning.myapplication.owner.FragmentMakeorder"
         tools:layout="@layout/fragment_makeorder">
         <action
             android:id="@+id/fragment_makeorder_to_fragment_ManagementBar"
@@ -249,7 +249,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_tablemanagement"
-        android:name="org.o7planning.myapplication.Owner.FragmentTableManagement"
+        android:name="org.o7planning.myapplication.owner.FragmentTableManagement"
         tools:layout="@layout/fragment_tablemanagement">
         <action
             android:id="@+id/fragment_tablemanagement_to_fragment_ManagementBar"
@@ -267,7 +267,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_ManagementBar"
-        android:name="org.o7planning.myapplication.Owner.FragmentManagementBar"
+        android:name="org.o7planning.myapplication.owner.FragmentManagementBar"
         tools:layout="@layout/fragment_management_bar">
         <action
             android:id="@+id/fragment_ManagementBar_to_fragment_tablemanagement"
@@ -292,7 +292,7 @@
 
     <fragment
         android:id="@+id/fragment_upgrade"
-        android:name="org.o7planning.myapplication.Admin.FragmentUpgrade"
+        android:name="org.o7planning.myapplication.admin.FragmentUpgrade"
         tools:layout="@layout/fragment_upgrade">
         <action
             android:id="@+id/fragment_ManagementBar_to_fragment_overview"

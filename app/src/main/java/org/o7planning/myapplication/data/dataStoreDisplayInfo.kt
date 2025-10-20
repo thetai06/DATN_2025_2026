@@ -17,5 +17,8 @@ class dataStoreDisplayInfo(
     val tableActive: Int? = 0,
     val tableEmpty: Int? = 0,
     val pendingBookings: Int? = 0,//chờ xử lý
-    val maintenance: Int? = 0
+    val maintenance: Int? = 0,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    var distance: Double? = null
 )

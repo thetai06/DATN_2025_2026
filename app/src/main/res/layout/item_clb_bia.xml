@@ -33,6 +33,9 @@
         android:layout_height="wrap_content"
         android:text="Địa chỉ: Hà Đông"
         android:textSize="@dimen/dimen_txt_16sp"
+        android:maxWidth="200dp"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintLeft_toLeftOf="@+id/txtNameShop"
         app:layout_constraintTop_toBottomOf="@+id/txtNameShop"
         />
@@ -45,6 +48,18 @@
         android:textSize="@dimen/dimen_txt_16sp"
         app:layout_constraintLeft_toLeftOf="@+id/txtLocationBook"
         app:layout_constraintTop_toBottomOf="@+id/txtLocationBook"
+        />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cách 5 km"
+        android:textColor="@color/colorMain"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtVoteShop"
+        app:layout_constraintStart_toStartOf="@+id/txtVoteShop"
         />
 
     <TextView

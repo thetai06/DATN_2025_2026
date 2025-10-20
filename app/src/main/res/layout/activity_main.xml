@@ -5,16 +5,32 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.MainActivity">
+    tools:context=".admin.MainActivity">
 
+    <TextView
+        android:id="@+id/tvWarningBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_xam"
+        android:padding="12dp"
+        android:textColor="#C65F00"
+        android:gravity="center_vertical"
+        android:text="Tài khoản chưa xác thực. Nhấn để gửi lại email."
+        app:drawableStartCompat="@drawable/icons8warning35"
+        android:drawablePadding="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:layout_constraintTop_toTopOf="parent"
-       android:name="androidx.navigation.fragment.NavHostFragment"
+        app:layout_constraintTop_toBottomOf="@+id/tvWarningBanner"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintStart_toStartOf="parent"
         app:navGraph = "@navigation/nav_graph"/>

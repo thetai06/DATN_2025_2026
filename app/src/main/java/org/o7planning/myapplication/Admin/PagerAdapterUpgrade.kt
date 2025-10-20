@@ -1,4 +1,4 @@
-package org.o7planning.myapplication.Admin
+package org.o7planning.myapplication.admin
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -7,14 +7,16 @@ import org.o7planning.myapplication.Admin.RvStepTwoFragment
 
 class PagerAdapterUpgrade(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
-    override fun getItemCount(): Int = 3 // Số lượng fragment
+    override fun getItemCount(): Int {
+        return 3
+    }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> RvStepOneFragment()
             1 -> RvStepTwoFragment()
             2 -> RvStepThreeFragment()
-            else -> RvStepOneFragment()
+            else -> throw IllegalStateException("Invalid position: $position")
         }
     }
 }

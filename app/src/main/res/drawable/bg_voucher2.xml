@@ -2,11 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/color_xanhnhat"/>
+            <solid android:color="@color/colorMain"/>
             <corners android:radius="10dp" />
         </shape>
     </item>
-    <item android:left="4dp" android:top="4dp">
+    <item android:left="3dp" android:top="3dp">
         <shape>
             <solid android:color="@color/ColorWhite"/>
             <corners android:radius="8dp"/>

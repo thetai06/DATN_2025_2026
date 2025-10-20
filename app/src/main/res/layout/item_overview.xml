@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".Owner.FragmentOverview">
+        tools:context=".owner.FragmentOverview">
 
         <ImageView
             android:id="@+id/imgHeader"
